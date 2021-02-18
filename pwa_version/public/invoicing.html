@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+    
+      <title>Ordering</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+        
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+       <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+       <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" /> 
+ <script src="assets/js/jquery.loadingModal.min.js"></script>
+    <link rel="stylesheet" href="assets/css/jquery.loadingModal.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+       
+      <style>
+         body {
+         font: 400 15px Lato, sans-serif;
+         line-height: 1.8;
+         color: #818181;
+         }
+         h2 {
+         font-size: 24px;
+         text-transform: uppercase;
+         color: #303030;
+         font-weight: 600;
+         margin-bottom: 30px;
+         }
+         h4 {
+         font-size: 19px;
+         line-height: 1.375em;
+         color: #303030;
+         font-weight: 400;
+         margin-bottom: 30px;
+         }  
+         .jumbotron {
+         background-color: linear-gradient(to bottom, #66ffff 2%, #ccccff 100%);
+         color: #fff;
+         padding: 100px 25px;
+         font-family: Montserrat, sans-serif;
+         }
+         .container-fluid {
+         padding: 60px 50px;
+         }
+         .bg-grey {
+         background-color: #f6f6f6;
+         }
+         
+         
+         .item h4 {
+         font-size: 19px;
+         line-height: 1.375em;
+         font-weight: 400;
+         font-style: italic;
+         margin: 70px 0;
+         }
+         .item span {
+         font-style: normal;
+         }
+         .navbar {
+         margin-bottom: 0;
+         background-color: white;
+         z-index: 9999;
+         border-bottom: 1px solid #E5E7E9;
+         font-size: 12px !important;
+         line-height: 1.42857143 !important;
+         letter-spacing: 4px;
+         border-radius: 0;
+         font-family: Montserrat, sans-serif;
+         }
+         .navbar li a, .navbar .navbar-brand {
+         color: back !important;
+         }
+         .navbar-nav li a:hover, .navbar-nav li.active a {
+         font-weight: bold;  
+         color: white !important;
+         background-color: black !important;
+         }
+         .navbar-default .navbar-toggle {
+         border-color: transparent;
+         color: black !important;
+         }
+        input
+          {
+              text-transform:uppercase;
+          }
+      </style>
+   </head>
+   <body id="myPage" >
+      <nav class="navbar navbar-default navbar-fixed-top">
+         <div class="container">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>                        
+               </button>
+               <a class="navbar-brand" href="#myPage">Ordering</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+               <ul class="nav navbar-nav navbar-right">
+                  <li><a href="#" onclick="window.history.back();"><span class="glyphicon glyphicon-home lg"></span>Dash</a></li>
+                 
+               </ul>
+            </div>
+         </div>
+      </nav>
+      <!-- Container (Contact Section) -->
+      <div id="contact" class="container-fluid bg-grey">
+         <h2 class="text-center">Order Details</h2>
+          <form id="myform">
+         <div class="row">
+            <div class="col-sm-12 slideanim">
+               <div class="row">
+                  <div class="col-sm-3 form-group">
+                     <label>Type of Customer</label>
+                     <select class="form-control input-lg " id="toc" required>
+                        <option>Institutional-Old</option>
+                         <option>Institutional-New</option>
+                        <option>Retail</option>
+                     </select>
+                  </div>
+                  <div class="col-sm-2 form-group">
+                        
+                     <label>Delivery Date</label>
+                   <input type="text" class="form-control input-lg" id="datepicker" required>
+                  </div>
+                    <div class="col-sm-2 form-group">
+                     <label>Time Slot</label>
+                     <select class="form-control input-lg" id="slot" required>
+                        <option value=1>Top priority</option>
+                        <option value=2>Medium Priority</option>
+                        <option value=3>Low Priority</option>
+                     </select>
+                  </div>
+                  <div class="col-sm-5 form-group">
+                     <label>Place of Consumption</label>
+                     <input type="text" id="placeofsupply" class="form-control input-lg" value="Alipurduar , W.B" required>
+                  </div>
+                    
+               </div>
+                     <div class="row">
+                      <div class="col-sm-3 form-group" >
+                     <select class="form-control input-lg" id="noc" required>
+                       
+                     </select>
+                  </div>
+                  <div class="col-sm-3 form-group">
+                       <input class="form-control input-lg" id="name" placeholder="Insert Name Here" type="text"  required>
+                         </div>
+                         <div class="col-sm-2 form-group">
+                       <input class="form-control input-lg" id="advance" placeholder="Advance " type="text"  required>
+                         </div>
+                <div class="col-sm-2 form-group">
+                       <select class="form-control input-lg" id="saletype" required>
+                        <option>Intra-State</option>
+                        <option>Inter-State</option>
+                        
+                     </select>
+                    
+                  </div>
+                     <div class="col-sm-2 form-group">
+                       <select class="form-control input-lg" id="tradetyp" required>
+                        <option>Sale</option>
+                        <option>Trade</option>
+                        
+                     </select>
+                    
+                  </div>     
+                        
+               </div>
+             
+          
+               <div class="row">
+                  <div class="col-sm-2 form-group">
+                     <select class="form-control input-lg" id="productype" >
+                       
+                     </select>
+                  </div>
+                  <div class="col-sm-2 form-group">
+                     <input type="text" id="descrip" placeholder="Description.." class="form-control input-lg" >
+                  </div>
+                   
+                  <div class="col-sm-1 form-group">
+                     <input type="number" id="qty" placeholder="Qty" class="form-control input-lg" >
+                  </div>
+                  
+                  <div class="col-sm-2 form-group">
+                     <select class="form-control input-lg" id="unit" required>
+                       
+                     </select>
+                  </div>
+                  <div class="col-sm-2 form-group">
+                     <input type="text" id="rateperunit" placeholder="Rate/unit" class="form-control input-lg" >
+                  </div>
+                  <div class="col-sm-1 form-group">
+                     <input type="text" id="gstrate" placeholder="Gst%" class="form-control input-lg" >
+                  </div>
+                   <div class="col-sm-1 form-group">
+                     <a type="button" id="btn22" class="btn btn-outlined btn-primary btn-md">
+                     <strong>Add Item(+)</strong></a>
+                       
+                  </div>
+                   
+               </div>
+              
+               <div>
+                 <table class="table table-bordered" id="tab1" style="display:none;background-color: white;">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Taxable Amount</th>
+        <th>Gst Amount</th>  
+        <th>Final Amount</th>  
+      </tr>
+    </thead>
+    <tbody id="addtbl">
+    </tbody>
+  </table>
+                </div>
+              
+               <div id="unreg" style="display:none;">
+                  <div class="row" >
+                     <div class="col-sm-3 form-group">
+                        <select class="form-control input-lg" id="region">
+                           <option>TOPSIKHATA and Beyond</option>
+                           <option>Birpara</option>
+                           <option>Morichbari</option>
+                           <option>Baneshwar & beyond</option>
+                           <option>Alipurduar-Town</option>
+                           <option>Kholta</option>
+                           <option>Nimti Mandabari & Beyond</option>
+                        </select>
+                     </div>
+                     <div class="col-sm-3 form-group">
+                        <input type="text" placeholder="Receiver's Phone Number.." id="receieversphone" class="form-control input-lg">
+                     </div>
+                     <div class="col-sm-6 form-group">
+                        <input placeholder="Enter Shipping Address Here.." id="shipaddress"  class="form-control input-lg">
+                     </div>
+                  </div>
+               </div>
+               <div id="newreg" style="display:none;">
+                  <div class="col-sm-12">
+                     <div class="row">
+                        <div class="col-sm-4 form-group">
+                           <input type="text" id="gstin"   class="form-control input-lg" placeholder="GSTIN">
+                        </div>
+                         <div class="col-sm-3 form-group">
+                           <input placeholder="Enter Phone/Email" id="contactdetails"  class="form-control input-lg">
+                        </div>
+                        <div class="col-sm-5 form-group">
+                           <input placeholder="Enter Biling Address Here.." id="billaddress"  class="form-control input-lg">
+                        </div>
+                         
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-12 form-group">
+                <button class="btn btn-info btn-lg pull-left" id="home" onclick="window.history.back();">Back</button>
+                <div class="col-md-8 text-center"> 
+                <button class="btn btn-success btn-lg col-md-push-3" style="display:none;" id="reset">Reset Table</button>
+                </div>  
+                  
+               <button class="btn btn-success btn-lg pull-right" id="sbmt" type="submit">Submit</button>
+            </div>
+         </div>
+          </form>
+      </div>
+       </body>
+</html>
+
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDoRzKyGMHeoBFNFAWbGlDtf9wnaTanXts",
+    authDomain: "jabook-d0b0b.firebaseapp.com",
+    databaseURL: "https://jabook-d0b0b.firebaseio.com",
+    projectId: "jabook-d0b0b",
+    storageBucket: "jabook-d0b0b.appspot.com",
+    messagingSenderId: "989034240400"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script>
+    // Initialize Cloud Firestore through Firebase
+    const db = firebase.firestore();
+    const settings = {timestampsInSnapshots: true};
+  db.settings(settings);
+    
+$('body').loadingModal({
+  text: 'Loading',
+  color: '#fff',
+  opacity: '0.7',
+  backgroundColor: 'rgb(0,0,0)',
+  animation: 'doubleBounce'
+});     
+    
+    
+ var temp,arr,v2,s,tmp,productlist,details,oid,general,itemscount,stockdeduct,bal22,productdes,nocs,currentUid,privilages,email;;   
+    //load basics
+    
+    
+    
+   // Track the UID of the current user.
+    
+  currentUid = null;  
+ firebase.auth().onAuthStateChanged(function(user2) {
+     
+ 
+    
+      console.log(user2);     
+     
+   var temp3;
+  if (user2 && user2.uid != currentUid) {  
+  email=user2.email; 
+   currentUid = user2.uid;
+      temp3=user2.displayName;
+      $("#usermsg").html(temp3);
+      console.log(user2);
+            user=temp3.substr(0,temp3.lastIndexOf(':'));
+      console.log(user2);
+            privilages=temp3.substr(temp3.lastIndexOf(':')+1,temp3.length-1);
+            
+            
+            console.log(privilages);
+  
+  } else {  
+   // Sign out operation. Reset the current user UID.  
+   currentUid = null;  
+   console.log("no user signed in");  
+  }  
+ }); 
+     
+    
+    
+    
+   bal22=0; productdes="";
+        db.collection("Settings").doc("Accounts")
+    .onSnapshot(function(doc) {
+            general=doc.data();
+        console.log(general);
+            replacelist("noc",general['Companies']);
+            if(general['Products'][general['Companies'][0]]!=undefined)
+                {
+            replacelist("productype",Object.keys(general['Products'][general['Companies'][0]]));
+                     $("#tradetyp").val("Sale");
+                }
+             else if(general['Procurement'][general['Companies'][0]]!=undefined)
+                 {
+            replacelist("productype",Object.keys(general['Procurement'][general['Companies'][0]]));
+                      $("#tradetyp").val("Trade");
+                 }
+            
+            replacelist("unit",general['Productunit']);
+      
+    db.collection("Settings/invoicing/Institutional-New").onSnapshot(function(querySnapshot) {
+        var arr3 = [];
+        querySnapshot.forEach(function(doc) {
+            arr3.push(doc.data().name);
+        });
+      autocom(arr3);  
+    });
+            
+            
+      $('body').loadingModal('hide');
+    }); 
+    
+    
+  
+$(document).ready(function()
+{
+itemscount=0;
+    arr=[];productlist=details=[];
+    stockdeduct={};
+    
+   $("#noc").change(function(){
+       $('#reset').trigger('click');
+     if(general['Products'][$("#noc option:selected").val()]!=undefined)
+         {
+     replacelist("productype",Object.keys(general['Products'][$("#noc option:selected").val()]));
+                     $("#tradetyp").val("Sale");
+                }
+             else if(general['Procurement'][$("#noc option:selected").val()]!=undefined)
+                 {
+     replacelist("productype",Object.keys(general['Procurement'][$("#noc option:selected").val()]));
+                      $("#tradetyp").val("Trade");
+                 }  
+   });
+    
+  $("#tradetyp").change(function(){
+      if($("#tradetyp option:selected").val()=="Sale")
+          {
+      if(general['Products'][$("#noc option:selected").val()]!=undefined)
+     replacelist("productype",Object.keys(general['Products'][$("#noc option:selected").val()]));  
+              else
+                  {
+                       swal("Data Missing","This is a Trading only Firm","error");
+                      $("#tradetyp").val("Trade");
+                  }
+              
+              
+          }
+      else if($("#tradetyp option:selected").val()=="Trade")
+          {
+      
+          if(general['Procurement'][$("#noc option:selected").val()]!=undefined)
+     replacelist("productype",Object.keys(general['Procurement'][$("#noc option:selected").val()]));  
+              else
+                  {
+                       swal("Data Missing","This is a Manufacturing only Firm","error");
+                      $("#tradetyp").val("Sale");
+                  }
+          }
+      
+   }); 
+   
+    
+    $( function() {
+    $( "#datepicker" ).datepicker({orientation: 'bottom',startDate: new Date(), autoclose: true, todayHighlight: true});
+  } );
+            
+
+    
+    //get the last oid here
+
+  
+    $("#myform").submit(function(evt)
+    {
+      evt.preventDefault();
+        
+        if(itemscount<1)
+            swal("Items Missing","Need to add at least one item","error");
+        else
+            {
+        var name=$("#name").val();
+      
+        var noc=$("#noc").val();
+       nocs=shorten(noc).toLocaleLowerCase();
+        var slot=$("#slot option:selected").val();
+        var expecdate=$("#datepicker").val();
+        console.log(expecdate); 
+        var otherdate=expecdate.substring(3,5)+'/'+expecdate.substring(0,2)+'/'+expecdate.substring(6,10);
+      console.log(otherdate);
+        expecdate=Date.parse(expecdate);
+        console.log(expecdate);
+        
+        var toc=$("#toc option:selected").val();
+        var placeofsupply=$("#placeofsupply").val();
+         var saletype=$("#saletype option:selected").val();
+        var advance=parseFloat($("#advance").val());
+         var billad=$("#billaddress").val();
+                var contactdetails=$("#contactdetails").val();
+                var gstin=$("#gstin").val();
+        
+    //Insert to Customer details here    
+        
+        if(v==="Retail")
+            {
+                
+               var region=$("#region").val();
+    var  receieversphone=parseInt($("#receieversphone").val()); 
+            console.log(receieversphone);
+            var shipad=$("#shipaddress").val();
+                details={
+                    name:name,
+                    address:shipad,
+                    phone:receieversphone,
+                    region:region,
+                    noc:noc
+                    
+                };
+                
+                checkandinsert(receieversphone.toString(),v,details);
+            }
+            else if(v==="Institutional-New")
+
+                {
+                    
+           
+                    details={
+                    name:name,
+                    address:billad,
+                    gstin:gstin,
+                    contactdetails:contactdetails,
+                    noc:noc    
+                        
+                    
+                };
+                checkandinsert(gstin,v,details);
+
+                }
+    
+    //Insert to orders    
+       oid=general.orderid[$("#noc option:selected").val()];
+        general.orderid[$("#noc option:selected").val()]=oid+1;
+        console.log("oid="+oid);
+        
+        if(v==="Retail")
+        {
+           details= {
+              order_id: oid,
+              name:name,
+               date:otherdate,
+                timest:expecdate,
+              noc:$("#noc option:selected").val(),
+               advance:advance,
+              typeofcustomer:toc,
+              timeslot:slot,
+              placeofsupply:placeofsupply,
+               saletype:saletype,
+               productlist:productlist,
+              region:region,
+              shipaddress:shipad,
+             balance:bal22, 
+               recieversphone:receieversphone,
+              predelivery:"N/A",
+               postdelivery:{},
+               status:"Order Created",
+               stockinfo:stockdeduct,
+               tradetype:$("#tradetyp").val(),
+               productdes:productdes,
+                billaddress:placeofsupply,
+                  gstin:"N/A",
+                contactdetails:receieversphone
+               
+
+          };
+
+
+        }
+        else if(v==="Institutional-New")
+
+            {
+               details= {
+                  order_id: oid,
+                  name:name,
+                   date:otherdate,
+                   advance:advance,
+                  noc:$("#noc option:selected").val(),
+                  typeofcustomer:toc,
+                  timeslot:slot,
+                 balance:bal22,  placeofsupply:placeofsupply,
+                timest:expecdate,
+                   saletype:saletype,
+                   productlist:productlist,
+                  billaddress:billad,
+                  gstin:gstin,
+                   contactdetails:contactdetails,
+                   predelivery:"N/A",
+               postdelivery:{},
+                   status:"Order Created",
+                   stockinfo:stockdeduct,
+                   tradetype:$("#tradetyp").val(),
+                     productdes:productdes
+
+              };
+            }
+         else if(v==="Institutional-Old")
+
+            {
+              details= {
+                  order_id: oid,
+                  name:name,
+                  date:otherdate,
+                advance:advance,
+                  noc:$("#noc option:selected").val(),
+                  typeofcustomer:toc,
+                  timeslot:slot,
+                 balance:bal22,  placeofsupply:placeofsupply,
+                timest:expecdate,
+                    saletype:saletype,
+                  productlist:productlist,
+                  billaddress:billad,
+                  gstin:gstin,
+                  contactdetails:contactdetails,
+                  predelivery:"N/A",
+               postdelivery:{},
+                  status:"Order Created",
+                  stockinfo:stockdeduct,
+                  tradetype:$("#tradetyp").val(),
+                    productdes:productdes
+
+              };
+            }
+        
+        
+        console.log(details);
+                
+     datainsert("Orders/#"+shorten(noc)+oid,details);            
+                
+     general.balancelist[nocs+"bal"]+=advance; 
+           general.balancelist["masterbalance"]+=advance; 
+        general.balancelist[user+'bal']+=advance;
+        datainsert("Settings/Accounts",general);    
+       
+        
+    var details22={
+    amount:advance,
+    balance: general.balancelist[nocs+"bal"],
+    date:todaysdate(4),
+    description:"Advance Payment for Order id="+oid+"for M/S "+name,
+    expensehead:"Inflow:Major Sales:Advance",
+    masterbalance:general.balancelist["masterbalance"],
+    userbal:general.balancelist[user+'bal'],
+    tid:todaysdate(2),
+    user:user,
+    noc:noc
+};                      
+                
+                   
+        datainsert("Accounts/mdb/main/"+todaysdate(2),details22);        
+       
+ 
+
+    
+     setTimeout(function(){
+         swal("Registered!", "Document successfully updated!", "success");
+      window.history.back();
+         },2500);
+
+
+
+  
+
+            };
+    });
+   $("#btn22").click(function()
+{  
+       var productype=$("#productype").val();
+
+        var descrip=$("#descrip").val();
+
+        var qty=parseFloat($("#qty").val());
+       
+
+        var unit=$("#unit").val();
+
+        var rate=parseFloat($("#rateperunit").val());
+
+        var gstrate=parseInt($("#gstrate").val());  
+       
+       if(productype==''||descrip==''||$("#qty").val()==''||unit==''||$("#rateperunit").val()==''||$("#gstrate").val()=='')
+          {
+          swal("Try again","Imp Data Missing","error");
+          
+          }
+       
+       else
+    {   //Product description starts here---- 
+       itemscount++;
+        
+       var hsnnew,itemtype2;
+      bal22+=(rate*qty)+((rate*qty)*(5/100)); 
+       
+       if($("#tradetyp option:selected").val()!="Trade")
+            {
+                 hsnnew=general.Products[$("#noc option:selected").val()][productype]["hsn"];
+                itemtype2=general.Products[$("#noc option:selected").val()][productype]["type"];
+            }
+       else
+           {
+              hsnnew=general.Procurement[$("#noc option:selected").val()][productype]["hsn"];
+               itemtype2=general.Procurement[$("#noc option:selected").val()][productype]["type"];
+           }
+       
+       
+       
+       if(stockdeduct.hasOwnProperty(productype))
+           {
+               stockdeduct[productype]["qty"]+=qty;
+               if($("#tradetyp option:selected").val()!="Trade")
+                   {
+               stockdeduct[productype]["value"]+=(general.Products[$("#noc option:selected").val()][productype]["unitprice"])*qty;
+              
+                   }
+               else
+                   {
+                   stockdeduct[productype]["value"]+=(general.Procurement[$("#noc option:selected").val()][productype]["unitprice"])*qty;
+                       
+                   }
+               
+           }
+       else
+           {
+               stockdeduct[productype]={};
+               stockdeduct[productype]["qty"]=qty;
+               
+               if($("#tradetyp option:selected").val()!="Trade")
+                   {
+               stockdeduct[productype]["value"]=(general.Products[$("#noc option:selected").val()][productype]["unitprice"])*qty;
+               
+                   }
+               else
+                   {
+                   stockdeduct[productype]["value"]=(general.Procurement[$("#noc option:selected").val()][productype]["unitprice"])*qty;
+                
+                   }
+               
+           }
+           
+      
+       temp=`<tr><th>${productype+' - '+descrip}</th>
+        <th>${qty +' - '+unit}</th>
+        <th>${qty*rate}</th>
+        <th>${qty*(rate*gstrate/100)}</th>  
+        <th>${(qty*rate)+qty*(rate*gstrate/100)}</th> </tr>`;
+       console.log(temp);
+       
+       productdes+=productype+' -'+descrip+'-'+qty +' - '+unit+'\n';
+       console.log(productdes);
+       
+       $("#tab1").show();
+       $("#addtbl").append(temp);
+      document.getElementById("productype").selectedIndex = 0;
+       $("#descrip").val('');
+       $("#qty").val('');
+       document.getElementById("unit").selectedIndex = 0;
+       $("#rateperunit").val('');
+       $("#gstrate").val('');
+       $("#reset").show('');
+       
+       temp={
+           product:productype,
+           description:descrip,
+           quantity:qty,
+           unit:unit,
+           rateperunit:rate,
+           gstrate:gstrate,
+           hsn:hsnnew,
+           type:itemtype2
+       };
+       productlist.push(temp);
+       
+       
+      console.log(stockdeduct); 
+   }
+
+   });
+    
+    //Reset table here
+    $("#reset").click(function(){
+       $("#addtbl").html(" ");
+        $("#tab1").hide();
+        $("#reset").hide();
+        productdes="";
+        productlist=[];
+        stockdeduct={};
+        itemscount=0;
+        bal22=0;
+    });
+ var v="Institutional-Old";
+
+            
+        
+        $("#toc").change(function(){
+        v=$("#toc option:selected").val();
+            console.log(v);
+        if(v==="Retail")
+            {
+                $( "#name" ).autocomplete({
+disabled: true
+});
+                $("#unreg").show().slideDown();
+                $("#newreg").hide();
+
+            }
+            else if(v==="Institutional-New")
+                {
+                    $( "#name" ).autocomplete({
+disabled: true
+});
+                     $("#newreg").show().slideDown();
+                $("#unreg").hide();
+                }
+            else
+                {
+                    $("#name").val(" ");
+                    $( "#name" ).autocomplete({
+                        disabled: false
+                        });
+                    
+                     $("#unreg").hide();
+                $("#newreg").hide();
+                    
+                }
+        });
+    
+    
+    
+    
+    
+    
+
+});
+    //replace list
+    
+    function replacelist(idi,arr)
+        {
+          var $el = $("#"+idi);
+$el.empty(); // remove old options
+arr.forEach(function(element) {
+  $el.append($("<option></option>").text(element));
+    });
+        };
+    
+        function shorten(s)
+        {
+
+            s=' '+s;
+            var t,ch,i;
+            t="";
+            for(i=0;i<s.length;i++)
+                {
+                    ch=s.charAt(i);
+                    if(ch==' ' && s.charAt(i+1)!='&')
+                    t+=s.charAt(i+1);
+                }
+         
+            
+            return t.toUpperCase();
+            
+        }
+        
+    function todaysdate(nn)
+        {
+           var d=new Date();
+           var s,t,dd,mm,yy;
+            s=t="";
+
+           yy=d.getFullYear();
+           
+                t=(d.getMonth()+1);
+            if(t<10)
+                t='0'+t;
+            mm=t;
+           
+            t=d.getDate();
+            if(t<10)
+                t='0'+t;
+            dd=t;
+           
+            if(nn==0)
+                s=yy+'-'+mm+'-'+dd;
+            else if(nn==2)
+                s=dd+'-'+mm+'-'+yy+':'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+            else if(nn==3)
+                s=yy+''+mm+dd;
+            else if(nn==4)
+                s=d.getTime();
+            else if(nn==5)
+                s=Date.parse(mm+'/'+dd+'/'+yy);
+               else if(nn==6)
+                   s=d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+            
+           
+            return s;
+       
+        } 
+    
+    function datainsert(dbextn,arr2)
+        {
+            
+     db.doc(dbextn).set(arr2)
+.then(function() {
+    console.log("Document written with ID: ");
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+    };
+    
+  //Customer data entry  
+    
+    function checkandinsert(docname,type,arr4)
+    {
+        var docRef = db.collection("Settings/invoicing/"+type).doc(docname);
+
+docRef.get().then(function(doc) {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+    } 
+    else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+        docRef.set(arr4)
+.then(function() {
+    console.log("Document written with ID: ");
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+    }
+    
+    //AUTOCOMPLETE JUST FOR NAME
+    function autocom (s1) {
+    $("#name").autocomplete({
+        source: function (request, response) {
+            response($.ui.autocomplete.filter(s1, request.term));
+        },
+        change: function (event, ui) {
+              if (ui.item == null) {
+        $("#name").val("");
+        $("#name").focus();
+        
+         $("#newreg").hide();          
+          $("#gstin").val("");
+            $("#contactdetails").val("");
+            $("#billaddress").val("");          
+              }
+            else
+                {
+                    console.log(ui.item.value);
+                  db.collection("Settings/invoicing/Institutional-New").where("name", "==",ui.item.value)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            $("#gstin").val(doc.data().gstin);
+            $("#contactdetails").val(doc.data().contactdetails);
+            $("#billaddress").val(doc.data().address);
+             $("#newreg").show();
+        });
+    })  
+                    
+                }
+        }
+    });
+
+   
+    
+};
+
+           
+
+    
+   
+   
+   
+</script>
+
+
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Login!</title>
+
+  <meta name="robots" content="noindex">
+  <meta name="googlebot" content="noindex">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- link for bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="assets/css/jquery.loadingModal.min.css">
+
+  <style>
+    body {
+
+      line-height: 1.8;
+      color: #818181;
+    }
+
+    body,
+    html,
+    container {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container d-flex h-100">
+
+    <div class="card mx-auto my-auto " style="padding:4%;min-width:50%;">
+
+      <h3 align="center" class="header">Login Credientials</h3>
+
+      <div class="card-content">
+
+        <form id="mform" autocomplete="off">
+
+          <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="email" class="form-control input-lg" id="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control input-lg" id="password" autocomplete="new-password" required />
+          </div>
+
+          <button type="submit" id="sbmt" class="btn btn-success btn-md">Submit</button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ? ________________ javascript goes here _________________ -->
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+  <!-- sweet alert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <script src="assets/js/jquery.loadingModal.min.js"></script>
+
+  <!-- loading modal js -->
+  <script src="./assets/js/loadingModal.js"></script>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+
+  <!-- firebase configuration -->
+  <script src="./assets/js/firebaseConfig.js"></script>
+
+  <!-- this page js -->
+  <script src="./assets/js/pages/index.js"></script>
+
+
+</body>
+
+</html>

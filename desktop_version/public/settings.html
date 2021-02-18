@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Settings</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="assets/css/jquery.loadingModal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+</head>
+
+<body id="myPage">
+
+  <!-- // navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Settings</a>
+    <a class="float-right" href="dash-Admin.html">dash</a>
+  </nav>
+
+  <!-- // main container-->
+  <div class="container" style="margin-top:40px;">
+
+    <!--// user management -->
+    <div class="card">
+      <h2 class="color:black;">User Management</h2>
+      <h3><strong>Add new User</strong></h3>
+
+      <form autocomplete="off" id="f1">
+        <label>Type of Operation</label>
+        <select class="form-control" id="operatontyp">
+          <option value="1">Sign Up!</option>
+          <option value="2">Current User Update</option>
+        </select>
+
+        <div id="signup" style="display:none;">
+          <label>User's Previlage</label>
+          <select class="form-control" id="privileges">
+            <option value="admin">Administrator</option>
+            <option value="nonadmin">Non Administrator</option>
+          </select>
+          <label>User ID </label>
+          <input autocomplete="off" type="text" id="userid" class="form-control">
+          <label>Email </label>
+          <input autocomplete="off" type="text" id="email" class="form-control">
+
+          <label>Password </label>
+
+          <input autocomplete="off" type="password" id="password" class="form-control">
+
+          <label>Confirm Password </label>
+
+          <input autocomplete="off" type="password" id="confirm_password" class="form-control">
+
+          <span id='message'></span>
+        </div>
+        <div id="update" style="display:none;">
+          <label>Data to be Updated</label>
+          <select class="form-control" id="updatedetails">
+            <option value="userid2">User ID</option>
+            <option value="email2">Email</option>
+            <option value="pass2">Password</option>
+            <option value="upgrade">Change Privilages</option>
+            <option value="delete">Delete User</option>
+          </select>
+          <label id="label2">User ID </label>
+          <input autocomplete="off" type="text" id="label2op" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit">Add</button>
+
+
+      </form>
+
+    </div>
+
+    <hr>
+    <!-- // Company Management-->
+    <div class="container-fluid mt-5">
+      <h2 style="color: black;">Company Management</h2>
+      <div class="card-body">
+
+        <h3 class="m-3"> <button class="btn btn-danger" data-toggle="modal" data-target="#removeco">Remove
+            Company</button>
+
+        </h3>
+        <h5 class="m-5">Add Company Details</h5>
+        <form autocomplete="off" id="comadd">
+          <div class="row">
+            <div class="col-md-3">
+              <input autocomplete="off" class="form-control" id="comname" type="text" placeholder="NAME"
+                style="text-transform:uppercase">
+            </div>
+            <div class="col-md-3">
+              <input autocomplete="off" class="form-control" id="comgstin" type="text" placeholder="GSTIN"
+                style="text-transform:uppercase">
+            </div>
+            <div class="col-md-3">
+              <input autocomplete="off" class="form-control" id="comemail" type="text" placeholder="EMAIL">
+
+            </div>
+            <div class="col-md-3">
+              <input autocomplete="off" class="form-control" id="comphone" type="text" placeholder="PHONE">
+
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-6">
+              <input autocomplete="off" class="form-control" id="comaddress" type="text"
+                placeholder="ADDRESS OF COMPANY">
+            </div>
+            <div class="col-md-6">
+              <input autocomplete="off" class="form-control" id="comsuppliers" type="text"
+                placeholder="SUPPLIERS spaced with commas(,)" style="text-transform:uppercase">
+            </div>
+          </div>
+
+          <hr>
+
+
+          <div class="row">
+            <div class="col-md-4">
+              <input autocomplete="off" class="form-control" id="combankname" type="text" placeholder="BANK NAME"
+                style="text-transform:uppercase">
+            </div>
+            <div class="col-md-4">
+              <input autocomplete="off" class="form-control" id="combankaccno" type="text" placeholder="ACCOUNT NO">
+            </div>
+            <div class="col-md-4">
+              <input autocomplete="off" class="form-control" id="combankifsc" type="text" placeholder="IFSC CODE"
+                style="text-transform:uppercase">
+
+            </div>
+
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-6">
+              <input autocomplete="off" class="form-control" id="compositions" type="text"
+                placeholder="POSITION spaced with commas(,)" style="text-transform:uppercase">
+            </div>
+            <div class="col-md-6">
+              <input autocomplete="off" class="form-control" id="compositionsadmin" type="text"
+                placeholder="POSITION Admin spaced with commas(,)" style="text-transform:uppercase">
+            </div>
+
+
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-6">
+              <input autocomplete="off" class="form-control" id="cominflow" type="text"
+                placeholder="INFLOW spaced with commas(,)" style="text-transform:uppercase">
+            </div>
+            <div class="col-md-6">
+              <input autocomplete="off" class="form-control" id="cominflowadmin" type="text"
+                placeholder="INFLOW ADMIN spaced with commas(,)" style="text-transform:uppercase">
+            </div>
+          </div>
+          <hr>
+
+          <div class="row">
+            <div class="col-md-6">
+              <input autocomplete="off" class="form-control" id="comexpense" type="text"
+                placeholder="EXPENSE(no stock) spaced with commas(,)" style="text-transform:uppercase">
+            </div>
+            <div class="col-md-6">
+              <input autocomplete="off" class="form-control" id="comexpenseadmin" type="text"
+                placeholder="EXPENSE ADMIN(no stock)  spaced with commas(,)" style="text-transform:uppercase">
+            </div>
+
+          </div>
+          <hr>
+
+
+          <h6>Procurement Details</h6>
+          <div class="row">
+            <div class="col-md-2">
+              <input autocomplete="off" class="form-control" id="comproname1" type="text" placeholder="Name"
+                style="text-transform:uppercase">
+            </div>
+            <div class="col-md-1">
+              <select class="form-control" id="comprotype1" placeholder="Type" style="text-transform:uppercase">
+                <option>goods</option>
+                <option>service</option>
+
+              </select>
+            </div>
+
+            <div class="col-md-1">
+              <input autocomplete="off" class="form-control" id="comprohsn1" type="text" placeholder="HSN">
+            </div>
+            <div class="col-md-1">
+              <input autocomplete="off" class="form-control" id="comproqty1" type="text" placeholder="Qty">
+            </div>
+            <div class="col-md-2">
+              <select class="form-control" id="comprounit1" placeholder="Unit"> </select>
+            </div>
+            <div class="col-md-2">
+              <input autocomplete="off" class="form-control" id="comprounitprice1" type="text" placeholder="Rate/unit">
+            </div>
+            <div class="col-md-2">
+              <input autocomplete="off" class="form-control" id="comprostockvalue1" type="text" placeholder="(₹)Value">
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-success btn-md" type="button" id="pro1add">Add(+)</button>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+
+              <table class="table table-bordered" id="tab1" style="display:none;background-color: white;">
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Hsn</th>
+                    <th>Qty in Stock</th>
+                    <th>Unit</th>
+                    <th>Unit Price</th>
+                    <th>Value of stock</th>
+                  </tr>
+                </thead>
+                <tbody id="addtbl1">
+                </tbody>
+              </table>
+              <button class="btn btn-success btn-lg col-md-push-3" type="button" style="display:none;" id="reset1">Reset
+                Table</button>
+
+            </div>
+          </div>
+
+          <hr>
+
+          <h6>Procurement Admin Details</h6>
+          <div class="row">
+            <div class="col-md-2">
+              <input autocomplete="off" class="form-control" id="comproname2" type="text" placeholder="Name"
+                style="text-transform:uppercase"> </div>
+            <div class="col-md-1">
+              <select class="form-control" id="comprotype2" placeholder="Type">
+                <option>goods</option>
+
+                <option>service</option>
+              </select>
+            </div>
+
+            <div class="col-md-1">
+              <input autocomplete="off" class="form-control" id="comprohsn2" type="text" placeholder="HSN">
+            </div>
+            <div class="col-md-1">
+              <input autocomplete="off" class="form-control" id="comproqty2" type="text" placeholder="Qty">
+            </div>
+            <div class="col-md-2">
+              <select class="form-control" id="comprounit2" placeholder="Unit"> </select>
+            </div>
+            <div class="col-md-2">
+              <input autocomplete="off" class="form-control" id="comprounitprice2" type="text" placeholder="Rate/unit">
+            </div>
+            <div class="col-md-2">
+              <input autocomplete="off" class="form-control" id="comprostockvalue2" type="text" placeholder="(₹)Value">
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-success btn-md" type="button" id="pro2add">Add(+)</button>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+
+              <table class="table table-bordered" id="tab2" style="display:none;background-color: white;">
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Hsn</th>
+                    <th>Qty in Stock</th>
+                    <th>Unit</th>
+                    <th>Unit Price</th>
+                    <th>Value of stock</th>
+                  </tr>
+                </thead>
+                <tbody id="addtbl2">
+                </tbody>
+              </table>
+              <button class="btn btn-success btn-lg col-md-push-3" type="button" style="display:none;" id="reset2">Reset
+                Table</button>
+
+            </div>
+          </div>
+
+
+
+
+
+          <hr>
+
+          <h6>Product Details</h6>
+          <div class="row">
+
+
+            <div class="col-md-2">
+              <input autocomplete="off" class="form-control" id="comproname3" type="text" placeholder="Name"
+                style="text-transform:uppercase">
+            </div>
+            <div class="col-md-1">
+              <select class="form-control" id="comprotype3" placeholder="Type">
+                <option>goods</option>
+                <option>service</option>
+              </select>
+            </div>
+
+            <div class="col-md-1">
+              <input autocomplete="off" class="form-control" id="comprohsn3" type="text" placeholder="HSN">
+            </div>
+            <div class="col-md-1">
+              <input autocomplete="off" class="form-control" id="comproqty3" type="text" placeholder="Qty">
+            </div>
+            <div class="col-md-2">
+              <select class="form-control" id="comprounit3" placeholder="Unit"> </select>
+            </div>
+            <div class="col-md-2">
+              <input autocomplete="off" class="form-control" id="comprounitprice3" type="text" placeholder="Rate/unit">
+            </div>
+            <div class="col-md-2">
+              <input autocomplete="off" class="form-control" id="comprostockvalue3" type="text" placeholder="(₹)Value">
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-success btn-md" type="button" id="pro3add">Add(+)</button>
+            </div>
+
+          </div>
+          <hr>
+
+          <div class="row">
+            <div class="col-md-12">
+
+              <table class="table table-bordered" id="tab3" style="display:none;background-color: white;">
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Hsn</th>
+                    <th>Qty in Stock</th>
+                    <th>Unit</th>
+                    <th>Unit Price</th>
+                    <th>Value of stock</th>
+                  </tr>
+                </thead>
+                <tbody id="addtbl3">
+                </tbody>
+              </table>
+              <button class="btn btn-success btn-lg col-md-push-3" type="button" style="display:none;" id="reset3">Reset
+                Table</button>
+
+            </div>
+          </div>
+
+
+
+
+
+
+          <div class="row">
+
+            <div class="col-md-3">
+              <input autocomplete="off" class="form-control" id="commdbbal" type="text" placeholder="MDB BAL">
+            </div>
+            <div class="col-md-3">
+              <input autocomplete="off" class="form-control" id="comfcbbal" type="text" placeholder="FCB BAL">
+
+            </div>
+            <div class="col-md-3">
+              <input autocomplete="off" class="form-control" id="comlastbos" type="text" placeholder="Last Bill no">
+            </div>
+            <div class="col-md-3">
+              <input autocomplete="off" class="form-control" id="comlastgst" type="text" placeholder="last Inv No">
+
+            </div>
+          </div>
+
+          <hr>
+
+          <button type="submit" class="btn btn-success btn-block btn-lg" id="comreg">Register</button>
+        </form>
+        <h1></h1>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- // remove company modal -->
+  <div class="modal fade" id="removeco" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Remove Company</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <select id="nocdel" class="form-control"></select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="btndel">Remove</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- // credentials modal -->
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Credintials</h5>
+
+        </div>
+        <div class="modal-body">
+
+          <input autocomplete="off" class="form-control" id="uid2" type="text" placeholder="Access Key">
+
+          <hr>
+          <input autocomplete="off" class="form-control" id="pass2" type="password" placeholder="PASS KEY">
+
+
+        </div>
+        <div class="modal-footer">
+          <p id="para1" style="display:none;color:red;">Acess Denied!Wrong Credintials</p>
+          <button type="button" class="btn btn-success" id="btnaccess">Get Access</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ? _______________ javascript _________________ -->
+
+  <!-- // bootstrap and jquery  -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <script src="assets/js/jquery.loadingModal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!--// firebase config -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+
+  <script src="./assets/js/firebaseConfig.js"></script>
+
+  <!-- // main script file of page -->
+
+  <script src="./assets/js/pages/settings.js"></script>
+
+</body>
+
+</html>

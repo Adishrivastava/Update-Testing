@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Login!</title>
+ 
+<meta name="robots" content="noindex">
+<meta name="googlebot" content="noindex">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> 
+
+    <!-- Compiled and minified JavaScript -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>  
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script> 
+      <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+    
+    <script src="assets/js/jquery.loadingModal.min.js"></script>
+    <link rel="stylesheet" href="assets/css/jquery.loadingModal.min.css">
+     
+      <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDoRzKyGMHeoBFNFAWbGlDtf9wnaTanXts",
+    authDomain: "jabook-d0b0b.firebaseapp.com",
+    databaseURL: "https://jabook-d0b0b.firebaseio.com",
+    projectId: "jabook-d0b0b",
+    storageBucket: "jabook-d0b0b.appspot.com",
+    messagingSenderId: "989034240400"
+  };
+  firebase.initializeApp(config);
+</script>
+
+  <style>
+  body {
+      
+      line-height: 1.8;
+      color: #818181;
+  }
+      
+  body, html,container {
+    height: 100%;
+      width: 100%;
+}
+ 
+  </style>
+</head>
+<body>
+    <div class="container d-flex h-100" >
+   
+      <div class="card mx-auto my-auto " style="padding:4%;min-width:50%;" >
+          <h3 align="center" class="header">Login Credientials</h3>
+        <div class="card-content" >
+     
+    <form id="mform" autocomplete="off" >
+    <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" class="form-control input-lg" id="email" required>
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control input-lg" id="password" autocomplete="new-password" required>
+  </div>
+  <button type="submit" id="sbmt" class="btn btn-success btn-md">Submit</button>
+          </form>
+            
+       
+      </div>
+    </div>
+       
+    </div>
+   
+
+<script>
+     $('body').loadingModal({
+  text: 'Loading',
+  color: '#fff',
+  opacity: '0.7',
+  backgroundColor: 'rgb(0,0,0)',
+  animation: 'doubleBounce'
+});
+    
+    
+
+                   
+
+    const db = firebase.firestore();
+    const settings = {timestampsInSnapshots: true};
+  db.settings(settings);
+  
+$(document).ready(function(){
+    $('body').loadingModal('hide');
+    console.log("start");
+    var email,password,f,tmp,uid,user,tmp2;
+     const auth  = firebase.auth();
+   $("#mform").submit(function(evt)
+    {
+      evt.preventDefault();
+       $('body').loadingModal('show');
+    console.log("hello");
+    email=$("#email").val();
+    password=$("#password").val();
+        console.log(email+password);
+       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+  .then(function() {
+    
+            firebase.auth().signInWithEmailAndPassword(email, password).
+ then(function(){
+          user=auth.currentUser; 
+                console.log(user);
+        uid=user.displayName;
+                console.log(uid);
+        uid=uid.substr(0,uid.lastIndexOf(':'));        
+     f=0;
+     $("#p1").hide();
+     console.log("Success!");
+                
+     
+       f=0;
+       db.collection("Settings").doc("users").onSnapshot(function(doc) {
+       tmp=doc.data().admin;
+           tmp2=doc.data().nonadmin;
+       console.log(tmp+' '+tmp2);    
+     
+        tmp.forEach(function(element) {
+            if(uid==element)                
+            f=1;
+            
+        }); 
+           
+        tmp2.forEach(function(element2) {
+            if(uid==element2)                
+            f=2;
+            
+        });
+           
+        $('body').loadingModal('hide');   
+           if(f==1)
+        window.location.href="dash-Admin.html";
+    else if(f==2)
+        window.location.href="dash-xxx22.html";
+    else
+         swal("Try Again!", "User not Registered !", "error");
+    });
+     
+     
+     
+    
+   
+     
+     
+     
+ })
+ .catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+                console.log(error);
+    errorCode=errorCode.replace("auth/", "");
+  var errorMessage = error.message;
+  // ...
+    $('body').loadingModal('hide');
+     swal(errorCode, errorMessage, "error");
+    
+});
+           
+           
+  })
+  .catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    errorCode=errorCode.replace("auth/", "");
+  var errorMessage = error.message;
+  // ...
+    $('body').loadingModal('hide');
+   swal(errorCode, errorMessage, "error"); 
+  });
+
+});
+    });
+  
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,22 @@
+? ____________ desktop version ____________
+
+ 1 . updating the links and cdns
+
+todo 2 . making the options arranged in side bar for every page
+
+todo 3 . making every fucking thing responsive
+
+   * accounts and accounts-adminfinal
+   * payroll and payroll admin
+   * debt-admin-1
+
+todo 4 . changing the options for invoice in ordering pages i.e. invoicing.html and invoice-other.html
+
+todo 5 . adding the csv input in payroll and debt pages.
+
+? ____________ important things ____________
+
+// commenting everywhere.
+// organizing everything.
+// fixing bugs everywhere I see.
+// not changing any links just upgrading.

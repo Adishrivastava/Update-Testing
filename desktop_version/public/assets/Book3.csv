@@ -1,0 +1,5 @@
+name,debtamt,startdate,toc,type1,noc,lastcommdate,lastcommdetails,contactno,setrem,remdate,remdetails
+debtor1,1000,21/01/2020,Retails,Advance,brick industries,29/01/2020,text1,9862021783,0,,
+debtor2,20000,20/02/2020,Institutional,Advance,stone crushing mill,10/3/2020,text2,7986275212,1,20/12/2020,reminder details2
+debtor3,12000,2/4/2020,Retails,Sale,stone crushing mill,19/10/2020,text3,70009711255,0,,
+debtor4,40000,30/11/2020,Institutional,Advance,brick industries,9/12/2020,text4,8001226211,1,21/11/2020,reminder details4

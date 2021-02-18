@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Theme Made By www.w3schools.com - No Copyright -->
+    <title>Accounts-Admin</title>
+    <meta name="robots" content="noindex">
+    <meta name="googlebot" content="noindex">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css"
+        type="text/css" media="all" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="assets/css/jquery.loadingModal.min.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+</head>
+
+<body id="myPage">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="dash-admin.html">Dash</a>
+
+    </nav>
+    <div class="container-fluid">
+        <div class="card" id="f1">
+            <div class="card-block" id="cardblk">
+
+                <form autocomplete="off" id="myform1">
+                    <div class="form-group row">
+                        <div class="col-md-4 ">
+
+
+                            <label>Name of Concern</label>
+                            <select class="form-control input-lg" id="noc">
+
+
+                            </select>
+
+
+                        </div>
+                        <div class="col-md-4">
+
+
+                            <label>Transaction Nature</label>
+                            <select class="form-control input-lg" id="transnature">
+
+
+                                <option>Inflow</option>
+                                <option>Inflow-Admin</option>
+                                <option>Outflow</option>
+
+                            </select>
+
+
+                        </div>
+                        <div class="col-md-4">
+
+
+                            <label>Select Transaction Type</label>
+                            <select class="form-control input-lg" placeholder="Loading" id="transtype">
+                                <option>Loading....</option>
+
+                            </select>
+
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+
+                        <div class="col-md-6 ">
+                            <label id="amtdsply">Amount in Rs(₹)</label>
+
+                            <input type="number" id="amt" min="0" class="form-control input-lg"
+                                oninput="validity.valid||(value='')" ; required>
+                        </div>
+                        <div class="col-md-6 ">
+
+                            <label>Description</label>
+
+                            <div id="other11" style="display:none;">
+                                <input type="text" id="description" placeholder="Details or HSN Code if available"
+                                    class="form-control input-lg">
+                            </div>
+                            <div id="procureother" style="display:none">
+                                <div class="row">
+                                    <div class="col-md-8 ">
+                                        <input type="text" id="description22"
+                                            placeholder="Details or HSN Code if available"
+                                            class="form-control input-lg">
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <input type="text" id="qty22" placeholder="Quantity"
+                                            class="form-control input-lg">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row" id="expenseextra">
+
+                        <div class="col-md-3">
+                            <label id="exleb">Expense Head</label>
+                            <select class="form-control input-lg" id="expensehead">
+
+                                <option>Loading....</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Supplier Details</label>
+                            <input type="text" id="sd" class="form-control input-lg">
+                        </div>
+                        <div class="col-md-2">
+                            <button id="add2" type="button" class="btn-info btn-md"
+                                style="display:none;margin-top: 26px;">(+)Add</button>
+
+
+                        </div>
+
+                        <div class="col-md-3" id="invav">
+                            <label>Invoice Available</label>
+                            <select class="form-control input-lg" id="invoiceavail">
+                                <option>No</option>
+                                <option>Yes</option>
+
+
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div id="add" style="display:none;">
+                        <div class="form-group row">
+                            <div class="col-md-6 ">
+                                <label>Supplier's GSTIN</label>
+
+                                <input type="text" id="slrgstin" value="N/A" class="form-control input-lg">
+                            </div>
+
+                            <div class="col-md-3 ">
+                                <label>Invoice Number</label>
+                                <input type="text" id="invno" class="form-control input-lg">
+                            </div>
+                            <div class="col-md-3 ">
+                                <label>Date of invoicing</label>
+                                <input type="text" id="invdt" class="form-control input-lg">
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-5 ">
+                                <label>Place of Supply</label>
+
+                                <input type="text" class="form-control input-lg" id="placeofsupply"
+                                    value="19-West Bengal" class="form-control">
+                            </div>
+
+                            <div class="col-md-4 ">
+                                <label>Indirect Tax Paid/Exp. ITC</label>
+                                <input type="text" class="form-control input-lg" id="expitc" class="form-control">
+                            </div>
+                            <div class="col-md-3 ">
+                                <label>Mode of Payment</label>
+                                <select class="form-control" class="form-control input-lg" id="paymode">
+                                    <option>Cash</option>
+                                    <option>Bank</option>
+
+
+                                </select>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div id="newdiv"></div>
+
+
+                    <button type="submit" id="sbmt1" style="float: right;margin-bottom:2px;"
+                        class="btn btn-success pull-right btn-lg">Submit</button>
+
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="card" id="f1">
+            <div class="card-block" id="cardblk">
+                <h5>Last Transactions</h5>
+                <div class="container-fluid" style="overflow: scroll;">
+                    <table class="table table-hover" id="lasttrans" style="border:solid 2px black;padding-left:5px;">
+                        <thead>
+                            <tr>
+                                <th>Tid</th>
+                                <th>Company Name</th>
+                                <th>User</th>
+                                <th>Expense Head</th>
+                                <th>Amount</th>
+
+                                <th>Description</th>
+
+
+
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Credintials</h5>
+
+                </div>
+                <div class="modal-body">
+
+                    <input class="form-control" id="uid2" type="text" placeholder="Access Key">
+
+                    <hr>
+                    <input class="form-control" id="pass2" type="password" placeholder="PASS KEY">
+
+
+                </div>
+                <div class="modal-footer">
+                    <p id="para1" style="display:none;color:red;">Acess Denied!Wrong Credintials</p>
+                    <button type="button" class="btn btn-success" id="btnaccess">Get Access</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ? javascript files here -->
+
+    <!-- // bootstrap and jquery -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script>
+
+    <!-- // datatables cdns -->
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="assets/js/jquery.loadingModal.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+    <!--// firebase config -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+
+    <!-- // files for pages -->
+
+    <script src="./assets/js/firebaseConfig.js"></script>
+
+    <script src="./assets/js/pages/accounts-adminfinal.js"></script>
+</body>
+
+</html>

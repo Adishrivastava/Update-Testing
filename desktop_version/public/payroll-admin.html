@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>-----Payroll----</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="assets/css/jquery.loadingModal.min.css" />
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css" />
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" />
+	<link rel="shortcut icon" href="#" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+
+
+	<link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Payroll</a>
+		<a class="float-right" href="dash-Admin.html">back</a>
+	</nav>
+
+	<div class="card">
+		<div class="card-body">
+
+			<div class="container-fluid">
+				<div class="card">
+					<div class="card-body">
+						<span class="float-left">
+							<div class="row">
+								<div class="col-xl-4">
+									<label>Name of Company</label>
+									<select class="form-control input-lg" id="noc">
+									</select>
+								</div>
+								<div class="col-xl-3">
+									<label>Category</label>
+									<select class="form-control input-lg" id="usercategory">
+										<option value="2">Non-Admin</option>
+										<option value="1">Admin</option>
+									</select>
+								</div>
+
+								<div class="col-xl-3">
+									<label>Sub Category</label>
+									<select class="form-control input-lg" id="empcategory">
+										<option>All</option>
+									</select>
+								</div>
+
+								<div class="col-xl-2">
+									<br />
+									<button type="button" id="getdata" class="btn btn-info btn-md"
+										style="display:block;margin:auto">
+										Get Data
+									</button>
+								</div>
+							</div>
+						</span>
+
+						<span class="float-right mt-3">
+							<button type="button" class="btn btn-info btn-lg" href="#" data-toggle="modal"
+								data-target="#myModal">
+								<i class="fas fa-plus"></i> Add New
+							</button>
+						</span>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-body">
+			<div class="container-fluid" style="overflow: scroll;">
+				<table class="table table-hover" id="myTable">
+					<thead>
+						<tr>
+							<th>Details</th>
+							<th>Contact No</th>
+							<th>Starting Date</th>
+							<th>Salary Amount</th>
+							<th>Balance</th>
+							<th></th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="myModal" role="dialog" style="z-index: 111111;">
+		<div class="modal-dialog modal-lg">
+
+			<!-- Modal content-->
+
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title">Employee's Details</h4>
+					<button type="button" class="close" data-dismiss="modal">
+						&times;
+					</button>
+				</div>
+
+				<div class="container">
+					<form autocomplete="off" id="f1">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-5">
+									<label>Name</label>
+									<input type="text" id="name" class="form-control"
+										placeholder="Employees's Name with Address(o)" />
+								</div>
+
+								<div class="col-md-3">
+									<label>Category</label>
+									<select class="form-control input-lg" id="pos">
+									</select>
+								</div>
+
+								<div class="col-md-4">
+									<label>Contact No</label>
+									<input type="text" id="contact" class="form-control" placeholder="Contact No." />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<label>Name of Company</label>
+									<select class="form-control input-lg" id="noc1">
+									</select>
+								</div>
+
+								<div class="col-md-2">
+									<label>Balance(₹)</label>
+									<input type="text" id="balamt" class="form-control" placeholder="Balance amount" />
+								</div>
+								<div class="col-md-3">
+									<label>Salary(₹)</label>
+									<input type="text" id="salaryamt" class="form-control" placeholder="Salary Amount" />
+								</div>
+								<div class="col-md-3">
+									<label>Enter Date of Start</label>
+									<div class="input-group">
+										<input type="text" class="form-control" id="start" />
+										<div class="input-group-append">
+											<span class="input-group-text"><i class="far fa-calendar-times fa-lg"></i></span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<button class="btn btn-success btn-lg" id="btn12" style="
+										width: 30%;
+										margin-top: 15px;
+										margin-left: 35%;
+									">
+								Enter
+							</button>
+						</div>
+					</form>
+
+					<form id="csvForm">
+						<h4 class="mt-5 mb-3">Add through csv file</h4>
+						<div class="form-group">
+							<input type="file" id="csvFile" style="display: block; margin: auto;" name="csvFile" accept=".csv"
+								required>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-lg btn-primary" style="display: block; margin: auto;"><i
+									class="fas fa-plus"></i>Add</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="myModal2" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h6 class="modal-title">Update details</h6>
+					<button type="button" class="close" data-dismiss="modal">
+						&times;
+					</button>
+				</div>
+				<div class="modal-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Date</th>
+								<th>Amt</th>
+								<th>Notes</th>
+							</tr>
+						</thead>
+						<tbody id="myTable22"></tbody>
+					</table>
+					<hr />
+					<form autocomplete="off" id="f2">
+						<label>Select Activity</label>
+						<select class="form-control input-lg" id="updateoption">
+							<option value="1">Payment</option>
+							<option value="2">Contact Change</option>
+							<option value="3">Balance Update</option>
+							<option value="4">Exit Employee</option>
+						</select>
+
+						<div id="payment" style="display: none;">
+							<label>Payment Amount in Rs(₹)</label>
+							<input type="text" class="form-control" id="amt2" value="0" />
+							<label>Notes</label>
+							<input type="text" class="form-control" id="paynotes" value="N/A" placeholder="Notes" />
+						</div>
+						<div id="contactnodiv" style="display: none;">
+							<label>Enter New Contact No</label>
+							<input type="text" class="form-control" id="contact2" placeholder="Enter New Contact No" />
+						</div>
+						<div id="baldiv" style="display: none;">
+							<label>Enter new Balance(₹)</label>
+							<input type="number" class="form-control" id="bal2" />
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="btn225" class="btn btn-success btn-md">
+						Update
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="myModal22" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						Credintials
+					</h5>
+				</div>
+				<div class="modal-body">
+					<input class="form-control" id="uid2" type="text" placeholder="Access Key" />
+
+					<hr />
+					<input class="form-control" id="pass2" type="password" placeholder="PASS KEY" />
+				</div>
+				<div class="modal-footer">
+					<p id="para1" style="display: none; color: red;">
+						Acess Denied!Wrong Credintials
+					</p>
+					<button type="button" class="btn btn-success" id="btnaccess">
+						Get Access
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ? ____________ all javascript files and cdns goes here ____________ -->
+
+	<!-- // bootstrap and jquery  -->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.2.0/papaparse.min.js"></script>
+	<script src="assets/js/jquery.loadingModal.min.js"></script>
+
+	<!--// firebase config -->
+
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+
+	<script src="./assets/js/firebaseConfig.js"></script>
+
+	<!-- // main script file of page -->
+	<script src="./assets/js/pages/payroll-admin.js"></script>
+
+</body>
+
+</html>

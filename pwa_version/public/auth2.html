@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Sample FirebaseUI App</title>
+
+		<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+
+		<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+		<script>
+			// Initialize Firebase
+			var config = {
+				apiKey: 'AIzaSyDoRzKyGMHeoBFNFAWbGlDtf9wnaTanXts',
+				authDomain: 'jabook-d0b0b.firebaseapp.com',
+				databaseURL: 'https://jabook-d0b0b.firebaseio.com',
+				projectId: 'jabook-d0b0b',
+				storageBucket: 'jabook-d0b0b.appspot.com',
+				messagingSenderId: '989034240400',
+			};
+			firebase.initializeApp(config);
+		</script>
+	</head>
+	<body>
+		<script>
+			// Track the UID of the current user.
+			var currentUid = null;
+			firebase.auth().onAuthStateChanged(function (user) {
+				// onAuthStateChanged listener triggers every time the user ID token changes.
+				// This could happen when a new user signs in or signs out.
+				// It could also happen when the current user ID token expires and is refreshed.
+				if (user && user.uid != currentUid) {
+					// Update the UI when a new user signs in.
+					// Otherwise ignore if this is a token refresh.
+					// Update the current user UID.
+					currentUid = user.uid;
+					document.body.innerHTML =
+						'<h1> Congrats ' +
+						user.uid +
+						', you are done! </h1> <h2> Now get back to what you love building. </h2> <h2> Need to verify your email address or reset your password? Firebase can handle all of that for you using the email you provided: ' +
+						user.email +
+						'. <h/2>';
+				} else {
+					// Sign out operation. Reset the current user UID.
+					currentUid = null;
+					console.log('no user signed in');
+				}
+			});
+		</script>
+		<h1>Congrats you're done! Now get back to what you love building.</h1>
+	</body>
+</html>

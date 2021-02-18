@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <title>-----Payroll----</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="assets/js/jquery.loadingModal.min.js"></script>
+    <link rel="stylesheet" href="assets/css/jquery.loadingModal.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" ></script>  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"> 
+  <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" ></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+     
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+    
+    <link rel="shortcut icon" href="#" />
+  <style>
+ 
+  .bg-grey {
+      background-color: #f6f6f6;
+  }
+ 
+
+  
+  
+  .navbar {
+      margin-bottom: 0;
+      background-color: white;
+     
+      border-bottom: 1px solid #E5E7E9;
+     
+      font-size: 12px !important;
+      line-height: 1.42857143 !important;
+      letter-spacing: 4px;
+      border-radius: 0;
+      font-family: Montserrat, sans-serif;
+  }
+  .navbar li a, .navbar .navbar-brand {
+      color: back !important;
+  }
+  .navbar-nav li a:hover, .navbar-nav li.active a {
+     font-weight: bold;  
+     color: white !important;
+      background-color: black !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+      color: black !important;
+  }
+   .datepicker {
+      z-index: 1600000 !important; /* has to be larger than 1050 */
+    }   
+      
+      #myModal,#myModal2{
+   
+   top: 55px;
+    z-index: 1400000
+   
+}
+ 
+  </style>
+</head>
+<body >
+    <div class="card">
+  <div class="card-body"> 
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Payroll</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+  
+    <ul class="navbar-nav ml-auto">
+        
+         <li class="nav-item">
+        <a class="nav-link" href="dash-xxx22.html">Dash</a>
+      </li>  
+     
+     
+    </ul>
+  </div>
+</nav>
+    <div class="container-fluid" >
+<div class="card">
+  <div class="card-body">
+<span class="float-left">
+  <div class="row">
+      
+      <div class="col-xl-6">
+    <label>Name of Company</label>
+<select class="form-control input-lg" id="noc">
+    
+   
+</select>  
+      </div>
+      
+    
+      
+      <div class="col-xl-4">
+    <label>Sub Category</label>
+<select class="form-control input-lg" id="empcategory">
+<option>All</option>
+
+</select>
+      </div>
+      
+      
+      <div class="col-xl-2">
+          <br>
+      <button type="button" id="getdata" class="btn btn-info btn-md" >Get Data</button>         
+      </div>
+    </div>
+    
+      </span>
+   
+   <span class="float-right">
+        <button type="button" class="btn btn-info btn-lg" href="#" data-toggle="modal" data-target="#myModal"><i class="fas fa-plus"></i>    Add New</button>
+      
+          </span>
+   </div>
+    </div>
+</div>  
+        </div>
+    </div>
+      
+  
+<div class="card">
+  <div class="card-body">    
+    
+    <table class="table table-hover" id="myTable">
+    <thead>
+        <tr>
+            <th>Details</th>
+            <th>Contact No</th>
+              <th>Start Date</th>
+            <th>Salary Amount</th>
+            <th>Balance</th>
+            <th></th>
+            
+        </tr>
+    </thead>
+  </table>
+    
+    </div>
+    </div>
+    
+     <div class="modal fade " id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg" >
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-header">
+             <h4 class="modal-title">Employee's Details</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="container">
+            <form autocomplete="off" id="f1">
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-5">
+              <label>Name</label>
+              <input type="text" id="name"class="form-control" placeholder="Employees's Name with Address(o)">
+                      </div>
+                    
+               
+                      <div class="col-md-3">
+                  <label>Category</label>
+                         <select class="form-control input-lg" id="pos">
+                             
+                          </select>
+                      </div>
+                      
+                      <div class="col-md-4">
+              <label>Contact No</label>
+              <input type="text" id="contact"class="form-control" placeholder="Contact No.">
+                      </div>
+                        </div>
+                  <div class="row">
+                     <div class="col-md-4">
+                 <label>Name of Company</label>
+                        <select class="form-control input-lg" id="noc1">
+                        
+                        </select>    
+                  </div>
+                
+                      <div class="col-md-2">
+                  <label>Balance(₹)</label>
+                  <input type="text" id="balamt" class="form-control" placeholder="Balance amount">
+                      </div>
+                     <div class="col-md-3">
+                  <label>Salary(₹)</label>
+                  <input type="text" id="salaryamt" class="form-control" placeholder="Salary Amount">
+                      </div>
+                        <div class="col-md-3">
+                  <label>Enter Date of Start</label>
+                <div class="input-group ">
+                        <input type="text" class="form-control" id="start" >
+                <div class="input-group-append">
+   
+                <span class="input-group-text"><i class="far fa-calendar-times fa-lg "></i></span>
+                </div>
+                    </div>
+                      </div>
+                  </div>
+                 
+                          
+                  <button  class="btn btn-success btn-lg" id="btn12" style="width:30%;margin-top:15px;margin-left:35%;">Enter</button>
+            
+            </div>
+            </form>
+      </div>
+      
+    </div>
+           
+    </div>
+    </div>
+     <div class="modal fade" id="myModal2" role="dialog">
+ <div class="modal-dialog " >
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-header">
+             <h6 class="modal-title">Update details</h6>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+            
+        
+          
+        </div>
+        <div class="modal-body">
+            <table class="table table-hover" >
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Amt</th>
+              <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody id="myTable22">
+    </tbody>
+  </table> 
+        <hr>     
+         <form autocomplete="off" id="f2">
+             <label>Select Activity</label>
+                        <select class="form-control input-lg" id="updateoption">
+                            
+                       
+                    <option value="1">Payment</option>
+                    <option value="2">Contact Change</option>
+                    <option value="3">Balance Update</option>        
+                    <option value="4">Exit Employee</option>                
+                  
+                        </select> 
+              
+            
+               <div id="payment" style="display:none;">
+                
+                
+                  <label>Payment Amount in Rs(₹)</label>
+                  <input type="text" class="form-control" id="amt2" value="0">
+                  <label>Notes</label>
+                  <input type="text" class="form-control" id="paynotes" value="N/A" placeholder="Notes">
+                  
+                  
+              </div>
+              <div id="contactnodiv" style="display:none;">
+               <label>Enter New Contact No</label>
+                  <input type="text" class="form-control" id="contact2" placeholder="Enter New Contact No">
+              </div>
+            <div id="baldiv" style="display:none;">
+                 <label>Enter new Balance(₹)</label>
+                  <input type="number" class="form-control" id="bal2" >
+             </div>
+              
+            </form>  
+                 
+         
+           
+        </div>
+        <div class="modal-footer">
+            <button id="btn225" class="btn btn-success btn-md" >Update</button>
+        </div>
+      </div>
+      
+    </div>
+           
+    </div>
+    
+
+<script>
+    //start  the loading modal
+     $('body').loadingModal({
+  text: 'Loading',
+  color: '#fff',
+  opacity: '0.7',
+  backgroundColor: 'rgb(0,0,0)',
+  animation: 'doubleBounce',
+         zIndex:111111111
+}); 
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDoRzKyGMHeoBFNFAWbGlDtf9wnaTanXts",
+    authDomain: "jabook-d0b0b.firebaseapp.com",
+    databaseURL: "https://jabook-d0b0b.firebaseio.com",
+    projectId: "jabook-d0b0b",
+    storageBucket: "jabook-d0b0b.appspot.com",
+    messagingSenderId: "989034240400"
+  };
+  firebase.initializeApp(config);
+     const db = firebase.firestore();
+    const settings = {timestampsInSnapshots: true};
+  db.settings(settings);
+
+    var detais,temp,obj1,obj2,obj,noc,lstbtnval,ref,user,op,count,temp33,notes,currentUid,privilages,email,notes,tmp88,user2;  
+    //Initialize firestore
+    user="null";
+  db.collection("Settings").doc("Accounts")
+    .onSnapshot(function(doc) {
+        obj1= doc.data();
+      console.log(obj1);
+      replacelist("noc",obj1.Companies);
+      replacelist("noc1",obj1.Companies);
+      obj=obj1.balancelist;
+     replacelist("empcategory",obj1.Positions[$("#noc option:selected").val()]);
+       replacelist("pos",obj1.Positions[$("#noc option:selected").val()]);
+      
+      
+      
+         db.collection("notes").doc((todaysdate(5)).toString()).get().then(function(doc) {
+            
+    if (doc.exists) {
+       
+        
+       notes= doc.data().content;
+    } 
+            else {
+       notes="";
+    }
+            
+   console.log(notes);                
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+      
+      
+     //loading respective positions for jobs in the company
+    
+     if(todaysdate(4)-obj1.lastpayday>=2678400000)
+       {
+      
+      db.collection("payroll")
+    .get()
+    .then(function(querySnapshot) {
+        
+        querySnapshot.forEach(function(doc) {
+            console.log(doc.data());
+        temp33=doc.data();
+           
+        temp33["balamt"]=parseFloat(temp33["balamt"])+parseFloat(temp33["salaryamount"]);
+            console.log(doc.id);
+        console.log(temp33);
+      datainsert("payroll",doc.id,temp33);    
+          
+        });
+        obj1["lastpayday"]=todaysdate(4);
+          datainsert("Settings","Accounts",obj1);
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+      
+      
+     }
+      
+      
+      
+      
+    $('body').loadingModal('hide');  
+     
+      
+  });
+ 
+$(document).ready( function () {
+    
+    
+    $("#contact2").change(function() {
+        
+        console.log($("#contact2").val());
+        
+    });
+    
+     $('.input-group input').datepicker({
+    format: "dd/mm/yyyy",
+    autoclose: true,
+    orientation:'bottom'
+});
+    
+    count
+    $("#payment").show();
+    ref=db.collection("payroll");
+   $("#noc").change(function(){
+      replacelist("empcategory",obj1.Positions[$("#noc option:selected").val()]);
+         
+   });
+ $("#noc1").change(function(){
+      replacelist("pos",obj1.Positions[$("#noc1 option:selected").val()]);
+         
+   });
+ $("#updateoption").change(function(){
+  op=$("#updateoption option:selected").val();
+     
+     if(op==1)
+    {     
+    $("#payment").show();
+    $("#contactnodiv").hide();
+        $("#baldiv").hide();
+    }
+         
+    else if(op==2)
+        {
+            $("#contactnodiv").show();
+            $("#payment").hide();
+            $("#baldiv").hide();
+            
+        }
+     else if(op==4)
+         {
+            $("#contactnodiv").hide();
+            $("#payment").hide(); 
+             $("#baldiv").hide();
+         }
+     else if(op==3)
+         {
+            $("#contactnodiv").hide();
+            $("#payment").hide(); 
+             $("#baldiv").show();
+         }
+        
+     
+ })  ; 
+    
+
+    
+});
+//on new Employee add(Register)
+    
+    $("#f1").submit(function(event){
+  event.preventDefault();
+        
+         $('body').loadingModal('show');
+         noc=$("#noc1 option:selected").val();
+        
+    detais={
+        salaryamount:parseFloat($("#salaryamt").val()),
+        name:$("#name").val(),
+        startdate:$("#start").val(),
+        category:$("#pos option:selected").val(),
+        balamt:parseFloat($("#balamt").val()),
+        
+        contactno:$("#contact").val(),
+        noc:noc,
+        paydetails:[]
+        
+        
+    }
+        console.log(detais);
+    datainsert("payroll",'#'+$("#contact").val(),detais); 
+        
+        notes+=todaysdate(6)+"Employee Added to"+noc+"--Name= "+$("#name").val()+"With salary="+$("#salaryamt").val()+"balance="+$("#balamt").val()+"<br>";
+        var details33={
+            content:notes,
+            date:todaysdate(5)
+        }
+        datainsert("notes",todaysdate(5).toString(),details33);
+        
+        $('#f1').trigger("reset"); 
+        $('#myModal').modal('toggle');
+        swal("Employee Saved Successfully!", "You may proceed!", "success");
+    });
+    
+    
+    $("#getdata").click(function()
+    {
+        $('#myTable').DataTable().destroy();
+         $('body').loadingModal('show');
+        var ref,cat,dt,noc2;
+        cat=$("#empcategory option:selected").val();
+        
+        noc2=$("#noc option:selected").val();
+       ref=db.collection("payroll");
+        
+           ref=ref.where("category", "==", cat);
+        
+                ref=ref.where("noc","==",noc2);
+           
+      
+        
+   ref.onSnapshot(function(querySnapshot) {
+        var temp = [];
+        querySnapshot.forEach(function(doc) {
+            temp.push(doc.data());
+    
+        });
+        
+     //datatables here
+     //datatables here
+         console.log(temp);   
+         var table=$('#myTable').DataTable( {
+        data:temp,
+             "destroy": true,
+        "columns": [
+            { data: "name" },
+            {data:"contactno"},
+            { data: "startdate" },
+            {data:"salaryamount"},
+            {data:"balamt"},
+         {
+      "data": null,
+      "defaultContent": "<button class='btn btn-info'>Update</button>",
+    }
+        ],
+              dom: 'Bfrtip',
+              buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+       
+       $('#myTable tbody').off().on('click', 'button', function () {
+           tmp88='';
+           $("#myTable22").html('');
+          
+        var data = table.row( $(this).parents('tr') ).data();
+           console.log(data);
+          data.paydetails.forEach(function(element){
+    tmp88+=`<tr><td>${element.date}</td><td>${element.amt}</td><td>${element.paynotes}</td>
+    </tr>`;
+  });
+       console.log(tmp88);
+             $("#myTable22").append(tmp88);
+           lstbtnval=data;
+           console.log(lstbtnval);
+       $('#myModal2').modal('toggle');
+          
+    } );
+       
+        $('body').loadingModal('hide');
+    });
+        
+ 
+    });
+    
+   $("#btn225").click(function(event){
+  event.preventDefault();
+        var temp,obj5,newcont,details2,date,nocs;
+       $('body').loadingModal('show');
+       tmp88='';
+       count=$("#contact2").val();
+        temp=$("#updateoption option:selected").val();
+    
+           obj5=lstbtnval;
+           
+         console.log(temp);
+  
+  
+               
+       if(temp=="1")       
+        {
+            nocs=shorten(obj5.noc).toLocaleLowerCase();
+            var amt32=parseInt($("#amt2").val());
+        obj5.balamt=parseInt(obj5.balamt)+amt32;
+        obj1.balancelist.masterbalance-=amt32;
+            obj1.balancelist[user+'bal']-=amt32;
+            obj1.balancelist[nocs+'bal']-=amt32;
+        
+      
+           obj5.paydetails.push({date:todaysdate(2),amt:amt32,paynotes:$("#paynotes").val()});
+           if(obj5.paydetails.length>5)
+               {
+                   obj5.paydetails.splice(0,1);
+               }
+            
+            details2={
+                amount:amt32,
+                date:todaysdate(4),
+                description:"Salary Payment to "+obj5.name,
+                expensehead:"Outflow:Expense:Staff Salary",
+                balance: obj1.balancelist[nocs+'bal'],
+                masterbalance:obj1.balancelist.masterbalance,//get here
+                noc:obj5.noc,
+                tid:todaysdate(2),//todays date
+                user:user,
+                userbal:obj1.balancelist[user+'bal']
+            };
+            datainsert("Accounts/mdb/main",todaysdate(2),details2);
+            datainsert("Settings","Accounts",obj1);
+            datainsert("payroll",'#'+obj5.contactno,obj5);
+          swal("Updated Successfully!", "You may proceed!", "success");  
+        }
+            
+    else  if(temp=="2")
+        {
+           db.collection("payroll").doc('#'+obj5.contactno).delete().then(function() {
+    console.log("Employee successfully Exited!");
+                console.log(count);
+                console.log(obj5);
+                obj5.contactno=count;
+            
+                console.log(obj5.contactno);
+                 datainsert("payroll",'#'+count,obj5);
+                swal("Contacts Updated Successfully!", "You may proceed!", "success");
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
+});
+        
+        }
+           
+else  if(temp=="4")
+        {
+            db.collection("payroll").doc('#'+obj5.contactno).delete().then(function() {
+      notes+=todaysdate(6)+"Employee Exitted from"+obj5.noc+" with name "+obj5.name+"With balance="+obj5.balamt+"<br>";
+        var details33={
+            content:notes,
+            date:todaysdate(5)
+        }
+        datainsert("notes",todaysdate(5).toString(),details33);            
+                
+                
+     swal("Employee Exitted!", "You may proceed!", "success");
+               
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
+});
+        
+        }
+           
+else if(temp=="3")  
+    {
+        
+        swal("Sorry!", "This is a Admin only feature!", "error");
+        $('body').loadingModal('hide');
+    }
+           
+        $('#f2').trigger("reset");   
+  
+            
+      
+      
+        $('#myModal2').modal('toggle');
+       
+  
+        });
+    
+    
+    
+function datainsert(dbextn,dbname,arr2)
+        {
+           
+    
+        db.collection(dbextn).doc(dbname).set(arr2)
+.then(function() {
+    console.log("Document written with ID: ");
+    //add write to reminder ifapplicable        
+     $('body').loadingModal('hide');       
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+    };
+    
+    
+    //replace list starts here
+      function replacelist(idi,arr)
+        {
+          var $el = $("#"+idi);
+$el.empty();  
+arr.forEach(function(element) {
+  $el.append($("<option></option>").text(element));
+    });
+        };
+    
+   //for the date part
+    function todaysdate(nn)
+        {
+           var d=new Date();
+           var s,t,dd,mm,yy;
+            s=t="";
+
+           yy=d.getFullYear();
+           
+                t=(d.getMonth()+1);
+            if(t<10)
+                t='0'+t;
+            mm=t;
+           
+            t=d.getDate();
+            if(t<10)
+                t='0'+t;
+            dd=t;
+           
+            if(nn==0)
+                s=yy+'-'+mm+'-'+dd;
+            else if(nn==2)
+                s=dd+'-'+mm+'-'+yy+':'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+            else if(nn==3)
+                s=yy+''+mm+dd;
+            else if(nn==4)
+                s=d.getTime();
+            else if(nn==5)
+                s=Date.parse(mm+'/'+dd+'/'+yy);
+               else if(nn==6)
+                   s=d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+            
+           
+            return s;
+       
+        } 
+    //shorten phrase
+    
+      function shorten(s)
+        {
+
+            s=' '+s;
+            var t,ch,i;
+            t="";
+            for(i=0;i<s.length;i++)
+                {
+                    ch=s.charAt(i);
+                    if(ch==' ' && ch!='&')
+                    t+=s.charAt(i+1);
+                }
+            return t;
+        }
+    
+    
+ currentUid = null;  
+ firebase.auth().onAuthStateChanged(function(user2) {
+     
+ 
+    
+      console.log(user2);     
+     
+   var temp3;
+  if (user2 && user2.uid != currentUid) {  
+  email=user2.email; 
+   currentUid = user2.uid;
+      temp3=user2.displayName;
+      $("#usermsg").html(temp3);
+      console.log(user2);
+            user=temp3.substr(0,temp3.lastIndexOf(':'))||"null";
+      console.log(user);
+            privilages=temp3.substr(temp3.lastIndexOf(':')+1,temp3.length-1);
+            
+            
+            console.log(privilages);
+  
+  } else {  
+   // Sign out operation. Reset the current user UID.  
+   currentUid = null;  
+   console.log("no user signed in");  
+  }  
+ });
+    
+    
+</script>
+
+</body>
+</html>
+

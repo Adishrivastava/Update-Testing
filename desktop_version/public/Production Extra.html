@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Off Season Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="assets/css/jquery.loadingModal.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <style>
+    #section1,
+    #section2,
+    #section3 {
+      display: none;
+    }
+  </style>
+
+</head>
+
+<body id="myPage">
+
+  <!-- // navbar and sidebar -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Production</a> <a href="dash-Admin.html" class="float-right">back</a>
+    <ul class="nav-list ml-auto">
+      <li class="nav-link">
+        <button class="openbtn float-left" onclick="openNav()">☰</button>
+
+      </li>
+    </ul>
+  </nav>
+
+  <!-- // sidebar -->
+  <div id="mySidebar" class="sidebar">
+
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a href="#" onclick="showDiv('section1')">Daily Work</a>
+    <a href="#" onclick="showDiv('section2')">Earth Procurements Stats</a>
+    <a href="#" onclick="showDiv('section3')">Brick Production Stats</a>
+
+  </div>
+
+
+  <!-- // main container -->
+
+  <div class="container-fluid" style="margin-top:40px;">
+
+    <div id="section1">
+      <span class="float-right">
+        <div class="input-group">
+          <input class="form-control" id="dateset" placeholder="Expected Season End Date">
+          <button class="btn btn-success" id="datesetbtn">Set Date</button>
+        </div>
+      </span>
+      <div class="flexIt">
+        <div class="card">
+
+          <div class="card-body">
+            <h5 class="card-title">Pathai</h5>
+            <form autocomplete="off" id="myform1">
+              <label>Total Pathai</label>
+              <input type="number" class="form-control" id="pacount" placeholder="Total Number of bricks produced">
+              <label>Number of workers</label>
+              <input type="number" class="form-control" id="pahdcount">
+              <label>Total Expenditure in (₹)</label>
+              <input type="number" class="form-control" id="paexpense"><br>
+              <button class="btn btn-success" id="pathai">Submit</button>
+            </form>
+
+          </div>
+        </div>
+        <div class="card">
+
+          <div class="card-body">
+            <h5 class="card-title">Bhojai</h5>
+            <form autocomplete="off" id="myform2">
+              <label>Total Bhojai</label>
+              <input type="number" class="form-control" id="bhocount" placeholder="Total Number of Chambers">
+
+              <label>Total Input Trips</label>
+              <input type="number" class="form-control" placeholder="Reja" id="reja" style="margin-bottom:2%;">
+              <input type="number" class="form-control" style="margin-bottom:2%;" placeholder="Van" id="van">
+              <input type="number" class="form-control" style="margin-bottom:2%;" placeholder="Outsourced(mintu)"
+                id="outside">
+              <label>Total Expenditure in (₹)</label>
+              <input type="number" class="form-control" id="bhoexpense">
+              <br>
+              <button class="btn btn-success" id="bhojai">Submit</button>
+            </form>
+
+          </div>
+        </div>
+        <div class="card">
+
+          <div class="card-body">
+            <h5 class="card-title">Jhukai</h5>
+            <form autocomplete="off" id="myform3">
+              <label>Total Jhukai</label>
+              <input type="number" class="form-control" id="jhocount" placeholder="No of Chambers">
+              <label>Total Expenditure in (₹)</label>
+              <input type="number" class="form-control" id="jhoexpense"><br>
+
+              <input type="number" class="form-control" id="totalcoal" placeholder="Total Coal Used in KGS">
+              <input type="number" class="form-control" id="coalexp" placeholder="Total Coal Expenditure (₹)">
+              <input type="number" class="form-control" placeholder="Total Alternative Fuel (Kgs)" id="totalaf">
+              <input type="number" class="form-control" id="afexp" placeholder="Total Alternative Fuel Expenditure (₹)">
+
+              <br>
+              <button class="btn btn-success" id="jhukai">Submit</button>
+            </form>
+          </div>
+        </div>
+        <div class="card">
+
+          <div class="card-body">
+            <h5 class="card-title">Kholai</h5>
+            <form autocomplete="off" id="myform4">
+              <label>Total Kholai</label>
+              <input type="number" class="form-control" id="khocount" placeholder="Kholai/Chamber">
+
+              <label>Expense (₹)</label>
+              <input type="number" class="form-control" id="khoexpense">
+              <label>Wastage</label>
+              <input type="number" class="form-control" id="khowastage" placeholder="in Nos"><br>
+
+              <button class="btn btn-success" id="kholai">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container-fluid" id="section2">
+      <span class="float-right">
+        <button class="btn btn-success" id="addvehi" data-toggle="modal" data-target="#registervehicle">Register
+          Vehicle(+)</button>
+        <button class="btn btn-info" id="tripinfo" data-toggle="modal" data-target="#addtrip">Add Trip Info</button>
+      </span>
+      <div class="container" style="overflow: scroll;">
+
+        <table class="table table-hover" id="selfstat" style="border:solid 2px black;padding-left:5px;">
+          <thead>
+            <tr>
+              <th>Reg No</th>
+              <th>Category</th>
+              <th>Expected Milage</th>
+              <th>Last Milage</th>
+              <th>Avg Milage</th>
+
+              <th>Avg W.t</th>
+              <th>Avg Cost/Brick</th>
+
+
+
+            </tr>
+          </thead>
+        </table>
+      </div>
+
+
+      <div class="container" style="overflow: scroll;">
+        <table class="table table-hover" id="leasestat" style="border:solid 2px black;padding-left:5px;">
+          <thead>
+            <tr>
+              <th>Reg No</th>
+              <th>Category</th>
+              <th>Expected Milage</th>
+              <th>Last Milage</th>
+              <th>Avg Milage</th>
+
+              <th>Avg W.t</th>
+              <th>Avg Cost/Brick</th>
+
+
+
+            </tr>
+          </thead>
+        </table>
+
+      </div>
+      <div class="container" style="overflow: scroll;">
+
+        <table class="table table-hover" id="supplierstats" style="border:solid 2px black;padding-left:5px;">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Avg Wt</th>
+              <th>Avg cost/Brick</th>
+              <th>Rate/Trip</th>
+
+
+
+            </tr>
+          </thead>
+        </table>
+
+      </div>
+
+    </div>
+
+    <div class="container-fluid" id="section3">
+      <h3>Brick Production Stats</h3>
+      <div class="container" style="overflow: scroll;">
+        <table class="table table-hover" id="labourstat" style="border:solid 2px black;padding-left:5px;">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Avg Expense</th>
+              <th>Avg Rate</th>
+              <th>Balance</th>
+
+              <th>Projected</th>
+              <th>Mismatch</th>
+              <th>Current Wastage(%)</th>
+              <th>Avg Wastage(%)</th>
+
+
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="modal fade" id="registervehicle" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Register Vehicle</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-4">
+                <label>Ownership</label>
+                <select class="form-control" id="ownership">
+                  <option value="supplier">Contractual</option>
+                  <option value="self">Self</option>
+                  <option value="lease">Leased/Rental</option>
+
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label>Catagory</label>
+                <select class="form-control" id="vehicletype">
+                  <option>Truck</option>
+                  <option>Tractor</option>
+                  <option>Tripper</option>
+                  <option>Backhoe</option>
+                </select>
+              </div>
+              <div class="col-md-5">
+                <label id="vehnoo">Supplier Name</label>
+                <input type="text" class="form-control" id="vehicleregno">
+                <br>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="ratepertrip"
+                  placeholder="Rate/trip for bed/contract owner(₹)">
+                <br>
+              </div>
+
+
+              <div class="col-md-6">
+
+                <input type="text" class="form-control" id="avgwt" placeholder="Average Vehicle wt  (Kgs)">
+              </div>
+            </div>
+
+            <div id="lease" style="display:none;">
+              <div class="row">
+                <div class="col-md-5">
+                  <input type="text" class="form-control" id="leasor" placeholder="Leasors Description">
+                </div>
+                <div class="col-md-3">
+                  <input type="text" class="form-control" id="leaseamt" placeholder="Lease(₹)">
+                </div>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" id="unloadamt" placeholder="Unloading(₹)">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="expectedmilage" placeholder="Exp. Milage">
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="driversfooding1" placeholder="Driver's Fooding(₹)">
+                </div>
+              </div>
+            </div>
+            <div id="self1" style="display:none;">
+              <div class="row">
+                <div class="col-md-4">
+                  <input type="text" class="form-control" id="expectedmilage1" placeholder="Exp. Milage">
+                </div>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" id="unloadingcharges" placeholder="Unloading(₹₹)">
+                </div>
+                <div class="col-md-4">
+                  <input type="text" class="form-control" id="compilancecharges" placeholder="Compilance(₹)">
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="driversal" placeholder="Driver's Salary">
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" id="driversfooding2" placeholder="Driver's Fooding(₹)">
+                </div>
+
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="btnreg">Register</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addtrip" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Record Trips</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form autocomplete="off" id="recordtrip">
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Ownership</label>
+                  <select class="form-control" id="ownership2" required>
+                    <option value="self">Self</option>
+                    <option value="lease">Leased/Rental</option>
+                    <option value="supplier">Contractual</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label id="vehno2">Vehicle No</label>
+                  <input type="text" class="form-control" id="vehicleregno2" required>
+                  <br>
+                </div>
+
+              </div>
+
+
+              <div class="row">
+                <div class="col-md-3">
+                  <input type="text" class="form-control" id="nooftrips2" placeholder="Trip Nos">
+                  <br>
+                </div>
+
+                <div class="col-md-3">
+                  <input type="text" class="form-control" id="totalfuelcharges" placeholder="Fuel(₹)">
+                  <br>
+                </div>
+                <div class="col-md-3">
+
+                  <input type="text" class="form-control" id="suppliername2" placeholder="Bed">
+                </div>
+                <div class="col-md-1">
+                  <button id="add2" type="button" class="btn-info btn-sm"
+                    style="display:none;margin-top:5px;">(+)Add</button>
+                </div>
+
+
+              </div>
+              <div id="self2">
+                <div class="row">
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="oilconsumed2" placeholder="Oil consumed">
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="distravel2" placeholder="Distance/Trip">
+                  </div>
+                  <div class="col-md-4">
+                    <input type="text" class="form-control" id="maintainance2" placeholder="Maintainance(₹)">
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success" id="btnrecord" data-dismiss="modal">Record</button>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ? ____________ all javascript files and cdns goes here ____________ -->
+
+  <!-- // bootstrap and jquery  -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="assets/js/jquery.loadingModal.min.js"></script>
+
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+  <!--// firebase config -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+
+  <script src="./assets/js/firebaseConfig.js"></script>
+
+  <!-- // main script file of page -->
+
+  <script src="./assets/js/pages/production-extra.js"></script>
+
+</body>
+
+</html>

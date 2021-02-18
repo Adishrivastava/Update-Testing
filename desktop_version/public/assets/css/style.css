@@ -1,0 +1,210 @@
+body {
+   font: 400 15px Lato, sans-serif;
+   line-height: 1.8;
+   color: #818181;
+}
+
+h1,h2,h3,h4,h5 {
+   text-align: center;
+}
+
+.navbar {
+   margin-bottom: 0;
+   background-color: rgb(24, 23, 23);
+   z-index: 9999;
+  
+  border: none;
+   font-size: 12px !important;
+   line-height: 1.42857143 !important;
+   letter-spacing: 4px;
+   border-radius: 0;
+   font-family: Montserrat, sans-serif;
+}
+
+.navbar li a,
+.navbar .navbar-brand {
+   color: white !important;
+   margin-right: 2%;
+}
+
+.navbar-nav li a:hover,
+.navbar-nav li.active a {
+   font-weight: bold;
+   color: white !important;
+   background-color: rgb(29, 28, 28) !important;
+   padding-right: 2px;
+}
+
+.ui-autocomplete {
+   z-index: 1100;
+}
+
+#side-nav   {
+   position: absolute;
+   top: 0;
+   left: 0px;
+   bottom: 0;
+   height: 100vh;
+   transition: all 0.4s ease-in-out;
+   width: 0px;
+   background-color: rgb(175, 176, 176);
+   overflow: hidden;
+   z-index: 1000000;
+   padding-top: 30px;
+   
+}
+
+#side-nav ul li  {
+   color: black;
+   padding-left: 30px;
+   font-size: 1.3em;
+   margin-top: 20px;
+   cursor: pointer;
+   overflow: hidden;
+}
+
+.mainCont   {
+   width: 100%;
+   min-height: 100vh;
+   padding-top: 50px;
+}
+
+.cont    {
+   padding-top: 30px;
+   padding-bottom: 50px;
+}
+
+#cont1   {
+   display: none;
+}
+#cont2   {
+   display: none;
+}
+#cont3   {
+   display: none;
+}
+#cont4   {
+   display: none;
+}
+#cont5   {
+   display: none;
+}
+#cont6   {
+   display: none;
+}
+#cont7   {
+   display: none;
+}
+
+@media screen and (min-width: 576px)   {
+.modal-dialog {
+    max-width: 90%;
+    margin: 1.75rem auto;
+}}
+
+.sidebar {
+   height: 100%;
+   width: 0;
+   position: fixed;
+   z-index: 11111111;
+   top: 0;
+   left: 0;
+   background-color: #111;
+   overflow-x: hidden;
+   transition: 0.3s;
+   padding-top: 60px;
+ }
+ 
+ .sidebar a {
+   padding: 8px 8px 8px 32px;
+   text-decoration: none;
+   font-size: 20px;
+   color: #818181;
+   display: block;
+   transition: 0.3s;
+ }
+ 
+ .sidebar a:hover {
+   color: #f1f1f1;
+ }
+ 
+ .sidebar .closebtn {
+   position: absolute;
+   top: 0;
+   right: 25px;
+   font-size: 36px;
+   margin-left: 50px;
+ }
+ 
+ .openbtn {
+   font-size: 20px;
+   cursor: pointer;
+   background-color: transparent;
+   color: white;
+   padding: 10px 15px;
+   border: none;
+ }
+ 
+ .openbtn:hover {
+   background-color: #444;
+ }
+ 
+ #main {
+   transition: margin-left .5s;
+   padding: 16px;
+ }
+
+ 
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+   .sidebar {padding-top: 15px;}
+   .sidebar a {font-size: 18px;}
+ }
+
+
+.flexIt  {
+   width: 100%;
+   display: grid;
+   grid-template-columns: repeat(auto-fit,minmax(220px,300px));
+   align-items: center;
+   justify-items: center;
+
+}
+
+.grid-row   {
+   width: 100%;
+   display: grid;
+   grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+   align-self: center;
+   justify-content: center;
+   
+}
+ .grids  {
+    height: 150px;
+    
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    
+ }
+
+.grids a  {
+   
+      color: white;
+      font-size: 1.4em;
+      font-weight: bold;
+    
+}
+
+ .cl-pink   {
+    background-color: rgb(217, 6, 41);
+ }
+ .cl-blue   {
+    background-color: rgb(6, 87, 217);
+ }
+ .cl-violet   {
+    background-color: rgb(62, 3, 122);
+ }
+ 

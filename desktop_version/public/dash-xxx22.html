@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Dash-Off Season</title>
+
+  <meta name="robots" content="noindex">
+  <meta name="googlebot" content="noindex">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+
+  <!-- // link for bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="stylesheet" href="assets/css/jquery.loadingModal.min.css">
+
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+</head>
+
+<body id="myPage">
+
+  <!-- // navbar  -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Off Season Dash</a>
+    <ul class="nav-list ml-auto mb-0 ">
+      <li><button class="openbtn" onclick="openNav()">☰</button></li>
+    </ul>
+  </nav>
+
+  <!-- // sidebar -->
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a href="#" onclick="showDiv('cont0')">Home</a>
+    <a href="#" onclick="showDiv('cont1')">Order List</a>
+    <a href="#" onclick="showDiv('cont2')">Order Under Progress</a>
+    <a href="#" onclick="showDiv('cont3')">Compilance List</a>
+    <a href="#" onclick="showDiv('cont4')">Daily Company Accounts Summary</a>
+    <a href="#" onclick="showDiv('cont5')">Daily Users</a>
+    <a href="#" onclick="showDiv('cont6')">Activity Reporter </a>
+    <a href="#" onclick="showDiv('cont7')">Activity Stats</a>
+    <div class="dropdown dropleft" style="    padding: 8px 8px 8px 32px;">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user-tie"></i>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <h8><span id="usermsg">No User Signed In!!</span></h8>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" id="userlogout" href="#">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- // main container -->
+
+  <div class="container-fluid">
+
+    <div class="cont" id="cont0">
+      <div class="container-fluid">
+        <div class="grid-row">
+
+          <div class="grids cl-pink">
+            <a class="nav-link" href="accounts.html">Accounts
+            </a>
+          </div>
+
+          <div class="grids cl-pink">
+            <a class="nav-link" href="payroll.html">Payroll</a>
+          </div>
+
+          <div class="grids cl-pink">
+            <a class="nav-link" href="Production%20Extra.html">Production
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="cont" id="cont1">
+      <h3>Order List</h3>
+      <div class="flexIt" id="add1"></div>
+      <span class="float-right">
+        <button class="btn btn-success" onclick="location.href='invoicing.html';">
+          (+)Add new Order
+        </button>
+      </span>
+    </div>
+
+    <div class="cont" id="cont2">
+      <h3>Order Under Progress</h3>
+      <div class="flexIt" id="add2"></div>
+    </div>
+
+    <div class="cont" id="cont3">
+      <h3>Compilance test</h3>
+      <div class="flexIt" id="add3"></div>
+      <span class="float-right">
+        <button class="btn btn-success" data-toggle="modal" data-target="#registertodo">
+          (+)Add new Task
+        </button>
+      </span>
+    </div>
+
+    <div class="cont" id="cont4">
+      <div class="flexIt" id="add4"></div>
+
+    </div>
+
+    <div class="cont" id="cont5">
+      <div class="flexIt" id="add5"></div>
+    </div>
+
+    <div class="cont" id="cont6">
+      <h5 class="p-3">
+        <span>
+          <button class="btn btn-info m-3" id="neutralise">
+            Neutralize Vehicles
+          </button>
+          <button class="btn btn-success m-3" id="addvehi" data-toggle="modal" data-target="#registervehicle">
+            Register Vehicle(+)
+          </button>
+        </span>
+      </h5>
+      <div class="container-fluid" style="margin-top: 20px;">
+
+        <div class="container">
+          <h4 class="mb-3">Daily Activity Register</h4>
+          <form autocomplete="off" id="form1">
+            <label>Select Activity</label>
+            <select class="form-control" id="selectactivity">
+              <option value="assign">Assignment</option>
+              <option value="pay">Payment</option>
+            </select>
+            <label>Assignment Type</label>
+            <select class="form-control" id="assignmenttype">
+              <option value="none">Select</option>
+              <option value="vehicledriver">Vehicle Driver</option>
+              <option value="dailywedge">Daily Wedge Worker</option>
+              <option value="stone">Stone</option>
+            </select>
+
+            <div id="assignvehicledriver" style="display: none;">
+              <label>Driver's Name</label>
+              <input autocomplete="off" type="text" class="form-control" id="drivername1" />
+              <label>Fooding Amount(₹₹)</label>
+              <input autocomplete="off" type="number" class="form-control" id="foodingamt" />
+            </div>
+            <div id="assignstone" style="display: none;">
+              <label>Vehice Registration No-</label>
+              <input autocomplete="off" type="string" style="text-transform: uppercase;" class="form-control"
+                id="vehregstone" />
+            </div>
+
+            <div id="assigndailywedge" style="display: none;">
+              <label>Expected Wedge</label>
+              <input autocomplete="off" type="number" class="form-control" id="wedge" />
+              <label>Number of workers</label>
+              <input autocomplete="off" type="number" class="form-control" id="worknos" />
+            </div>
+            <div id="paystone" style="display: none;">
+              <label>Vehice Registration No-</label>
+              <input autocomplete="off" type="string" style="text-transform: uppercase;" class="form-control"
+                id="vehregstone2" />
+              <label>Amount to be Paid</label>
+              <input autocomplete="off" type="number" class="form-control" id="amtduestone" />
+              <label>Amount Actually Paid </label>
+              <input autocomplete="off" type="number" class="form-control" id="payamtstone" placeholder="in this trip"
+                value="0" />
+
+              <label>Weight</label>
+              <input autocomplete="off" type="number" class="form-control" id="avgwtstone" placeholder=" in KG" />
+            </div>
+            <div id="payother" style="display: none;">
+              <h6>Balance:<span id="hazirapaybal"></span></h6>
+
+              <label>Payment Amt</label>
+              <input autocomplete="off" type="number" class="form-control" id="otheramt" />
+            </div>
+            <div id="driname" style="display: none;">
+              <label>Driver's Name</label>
+              <input autocomplete="off" type="text" class="form-control" id="drivername" />
+            </div>
+            <br />
+            <button type="submit" id="btn25" style="display: block; margin: auto;" class="btn btn-success">
+              Submit</button><br />
+          </form>
+
+        </div>
+
+        <div class="container">
+          <h4 class="mb-3 mt-5">Truck Trip Register</h4>
+
+          <form autocomplete="off" id="form2">
+            <div class="container">
+              <select class="form-control" id="triptype2">
+                <option>Within Compound(Bhata 2 Bhata)</option>
+                <option>Small Sale</option>
+                <option>Others</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Vehice Registration No-</label>
+              <input autocomplete="off" type="string" style="text-transform: uppercase;" class="form-control"
+                id="vehregno" required />
+            </div>
+
+            <div class="form-group">
+              <label>Fuel charges</label>
+              <input autocomplete="off" type="text" class="form-control" id="totalfuelcharges"
+                placeholder="Total Fuel(₹₹)" required />
+            </div>
+
+            <div class="form-group">
+              <label>Oil Consumed</label>
+
+              <input autocomplete="off" type="text" class="form-control" id="oilconsumed2" placeholder="Oil consumed"
+                required />
+
+            </div>
+            <div class="form-group">
+              <label>Distance Travelled</label>
+              <input autocomplete="off" type="text" class="form-control" id="distravel2"
+                placeholder="Distance or Hours Worked" required />
+            </div>
+            <div class="form-group">
+
+              <label>Other Charges</label>
+              <input autocomplete="off" type="text" class="form-control" id="maintainance2"
+                placeholder="Maintainance(₹) & Other Charges" value="0" required />
+              <br />
+            </div>
+            <button id="btn2" style="display: block; margin: auto;" class="btn btn-success">
+              Record Trip!
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="cont" id="cont7">
+      <div class="container-fluid pt-5">
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Vehicles On duty Stats</h3>
+            <div class="container-fluid" style="overflow: scroll;">
+              <table class="table table-hover" id="selfstats" style="border: solid 2px black; padding-left: 5px;">
+                <thead>
+                  <tr>
+                    <th>Reg No</th>
+                    <th>Category</th>
+                    <th>Last Milage</th>
+                    <th>Avg Milage</th>
+                    <th>Expected Milage</th>
+                    <th>Running Cost</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+        <h3>Stone Trips</h3>
+        <div class="container-fluid" style="overflow: scroll;">
+          <table class="table table-hover" id="stonestats" style="border: solid 2px black; padding-left: 5px;">
+            <thead>
+              <tr>
+                <th>Reg No</th>
+                <th>Exit Time</th>
+                <th>Weight</th>
+                <th>Amount Paid</th>
+                <th>Amount Due</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+
+
+      <h3>Daily Activity Report</h3>
+      <div class="container-fluid" style="overflow: scroll;"></div>
+      <table class="table table-hover" id="dailystats" style="border: solid 2px black; padding-left: 5px;">
+        <thead>
+          <tr>
+            <th>Activity</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+  </div>
+
+
+  <!-- // modal for registering vehicles used in Activity -->
+
+  <div class="modal fade" id="registervehicle" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Register Vehicle</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form autocomplete="off" id="form3">
+              <div class="row">
+
+
+                <div class="col-md-3">
+                  <label>Catagory</label>
+                  <select class="form-control" id="vehicletype">
+                    <option>Stone</option>
+                    <option>Truck</option>
+                    <option>Tractor</option>
+                    <option>Tripper</option>
+                    <option>Backhoe</option>
+
+                  </select>
+                </div>
+
+                <div class="col-md-3">
+                  <label>Reg No</label>
+                  <input autocomplete="off" type="text" style="text-transform: uppercase" class="form-control"
+                    id="modalvehregno">
+                </div>
+                <div class="col-md-6">
+                  <div id="others1" style="display:none;">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Driver's</label>
+                        <input autocomplete="off" type="text" class="form-control" id="driversfooding1"
+                          placeholder="Fooding(₹)">
+                      </div>
+                      <div class="col-md-6">
+                        <label>Avg Wt</label>
+                        <input autocomplete="off" type="text" class="form-control" id="avgwt" placeholder="in Kgs">
+                      </div>
+                    </div>
+                  </div>
+                  <div id="stone2" style="display:none;">
+
+                    <label>Source of Minerel</label>
+                    <input autocomplete="off" type="text" class="form-control" id="stonesource"
+                      placeholder="River Name ">
+
+
+                  </div>
+                </div>
+              </div>
+              <div id="others2" style="display:none;">
+                <div class="row" style="margin-top:10px;">
+                  <div class="col-md-4">
+                    <input autocomplete="off" type="text" class="form-control" id="compilancecharges"
+                      placeholder="Compilance(₹) ">
+                  </div>
+
+                  <div class="col-md-4">
+                    <input autocomplete="off" type="text" class="form-control" id="driversal"
+                      placeholder="Driver's Salary">
+                  </div>
+                  <div class="col-md-4">
+
+                    <input autocomplete="off" type="text" class="form-control" id="expectedmilage"
+                      placeholder="Exp. Milage">
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="btnreg">Register</button>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--modals for todo reg-->
+
+  <div class="modal fade" id="registertodo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Add New Compilance/To-Do</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form autocomplete="off" id="form5">
+              <div class="row">
+
+                <div class="col-md-3">
+                  <label>Reminder Date</label>
+                  <input autocomplete="off" type="text" class="form-control input-lg" id="datepicker1" required>
+                </div>
+                <div class="col-md-3">
+                  <label>Last Date for the Task</label>
+                  <input autocomplete="off" type="text" class="form-control input-lg" id="datepicker2" required>
+                </div>
+
+                <div class="col-md-3">
+                  <label>Frequency of Reminder</label>
+                  <select class="form-control" id="remfrequency">
+
+                    <option value=1>Non Periodic</option>
+                    <option value=3>Periodic </option>
+
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Priority of Reminder</label>
+                  <select class="form-control" id="rempriority">
+
+                    <option value=1>High</option>
+                    <option value=2>Mid </option>
+                    <option value=3>Low </option>
+
+                  </select>
+                </div>
+
+              </div>
+              <div class="row">
+
+                <div class="col-md-4">
+                  <label>Enter the Title</label>
+                  <input autocomplete="off" type="text" class="form-control" id="tasktitle" placeholder="task title">
+                </div>
+
+                <div class="col-md-4">
+                  <label>Task Description</label>
+                  <input autocomplete="off" type="text" class="form-control" id="taskdescription"
+                    placeholder="task description">
+                </div>
+                <div class="col-md-4">
+
+                  <div id="others22" style="display:none;">
+                    <label>Add Interval Value</label>
+                    <input autocomplete="off" type="number" class="form-control" id="interval"
+                      placeholder="In no of days">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success" id="btntaskreg">Register</button>
+
+
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <!--modals for todo update-->
+
+  <div class="modal fade" id="updatetodo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Update Compilance/To-Do</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form autocomplete="off" id="form65" novalidate>
+              <div class="row">
+
+                <div class="col-md-4">
+                  <label>Updation Type </label>
+                  <select class="form-control" id="taskupdatetype">
+
+                    <option value=1>Done</option>
+                    <option value=2>Prostpond</option>
+                    <option value=3>Re-Initiate </option>
+                    <option value=4>Delete</option>
+
+
+                  </select>
+                </div>
+                <div class="col-md-8">
+                  <div id="prostpond" style="display:none;">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label> Display</label>
+                        <input autocomplete="off" type="text" class="form-control input-lg" id="datepicker3" required
+                          placeholder="Next Date">
+                      </div>
+                      <div class="col-md-6">
+                        <label>New Last</label>
+                        <input autocomplete="off" type="text" class="form-control input-lg" id="datepicker4" required
+                          placeholder="date">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" id="reinitiate" style="display:none;">
+
+
+                <div class="col-md-12">
+                  <label>New Description</label>
+                  <input autocomplete="off" type="text" class="form-control" id="taskdescription2"
+                    placeholder="task description">
+                </div>
+
+
+              </div>
+
+              <div class="modal-footer">
+                <button href="#" type="submit" class="btn btn-success">Register</button>
+
+
+              </div>
+
+
+
+            </form>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <!--modals for pre-order details-->
+
+  <div class="modal fade" id="preordermod" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Pre-Order Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form autocomplete="off" id="form8">
+              <div class="row">
+
+                <div class="col-md-4">
+                  <label>Delivery Typ </label>
+                  <select class="form-control" id="predeliverytype">
+
+                    <option value=1>Self</option>
+                    <option value=2>Other</option>
+
+                  </select>
+                </div>
+                <div class="col-md-4">
+
+                  <label> Vehicle </label>
+                  <input autocomplete="off" type="text" class="form-control input-lg" id="prevehassigned" required
+                    placeholder="REG No">
+                </div>
+                <div class="col-md-4">
+                  <label>Labour </label>
+                  <input autocomplete="off" type="number" class="form-control input-lg" id="prelabournos"
+                    placeholder="Nos" required>
+
+                </div>
+
+
+
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Unloading</label>
+                  <input autocomplete="off" type="number" class="form-control input-lg" id="preexphazira" required
+                    placeholder="(₹₹₹₹)">
+                </div>
+
+                <div class="col-md-4">
+                  <label>Type of Invoice</label>
+                  <select class="form-control" id="preinvoicetype">
+
+                    <option value=1>Bill of Supply-Half</option>
+                    <option value=2>Gst Invoice-Half</option>
+
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label>Amount received </label>
+                  <input autocomplete="off" type="number" class="form-control input-lg" id="preamt" required
+                    placeholder="Any AMT(₹)">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success" id="btninvgen">Generate Invoice</button>
+
+
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <!--modals for post order details-->
+
+  <div class="modal fade" id="postordermod" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Post Order Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form autocomplete="off" id="form89">
+              <div class="row">
+
+                <div class="col-md-3">
+                  <label>Pay Type </label>
+                  <select class="form-control" id="postpaytype">
+
+                    <option value=1>Cash</option>
+                    <option value=2>E-Transfer</option>
+                    <option value=3>Cheque </option>
+                    <option value=4>Unpaid </option>
+
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Payment(₹)</label>
+                  <input autocomplete="off" type="text" class="form-control" id="postpayamt" placeholder="Expense"
+                    value=0>
+
+
+                </div>
+                <div class="col-md-6" id="unpaiddiv" style="display:none;">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Rem Date</label>
+                      <input autocomplete="off" type="text" class="form-control" id="postremdate" placeholder="Date">
+
+                    </div>
+
+                    <div class="col-md-6">
+                      <label>Rem Details</label>
+                      <input autocomplete="off" type="text" class="form-control" id="postremdetails"
+                        placeholder="Details">
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6" id="epaydiv" style="display:none;">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label>Bank</label>
+                      <input autocomplete="off" type="text" class="form-control" id="postbnkname" placeholder="Name">
+
+                    </div>
+
+                    <div class="col-md-6">
+                      <label>Bank</label>
+                      <input autocomplete="off" type="text" class="form-control" id="postbnkdetails"
+                        placeholder="Details">
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="row" id="selfdelivery" style="display:none;">
+
+
+                <div class="col-md-3">
+                  <label>Oil Consumed</label>
+                  <input autocomplete="off" type="number" class="form-control" id="postoilconsumed"
+                    placeholder="in Lt.s (Expec)">
+                </div>
+
+                <div class="col-md-3">
+                  <label>Other(₹)</label>
+                  <input autocomplete="off" type="number" class="form-control" id="postoilcost" placeholder="Expense"
+                    value=0>
+                </div>
+
+                <div class="col-md-3">
+
+                  <label>Approx Distance</label>
+                  <input autocomplete="off" type="number" class="form-control input-lg" id="postdistance"
+                    placeholder="in KMs">
+                </div>
+                <div class="col-md-3">
+
+                  <label>Hazira Balance:<span id="haziradifference"></span></label>
+                  <input autocomplete="off" type="number" class="form-control input-lg" id="posthazirabal"
+                    placeholder="Total Hazira Paid">
+                </div>
+
+              </div>
+
+              <div id="postorderextra">
+
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success" id="postordersubmit">Register</button>
+
+
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!--modal for accounts data table display-->
+
+  <div class="modal fade" id="accdetailsdisplay" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Account Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body container-fluid">
+
+          <table class="table table-hover" id="accdetailsadd">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Credit</th>
+                <th>Description</th>
+                <th>Debit</th>
+              </tr>
+            </thead>
+          </table>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- loading modal -->
+
+  <div class="modal fade" id="myModal222" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">
+            Credintials
+          </h5>
+        </div>
+        <div class="modal-body">
+          <input autocomplete="off" class="form-control" id="uid2" type="text" placeholder="Access Key" />
+
+          <hr />
+          <input autocomplete="off" class="form-control" id="pass2" type="password" placeholder="PASS KEY" />
+        </div>
+        <div class="modal-footer">
+          <p id="para1" style="display: none; color: red;">
+            Acess Denied!Wrong Credintials
+          </p>
+          <button type="button" class="btn btn-success" id="btnaccess">
+            Get Access
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+
+  <!-- ? ____________ all javascript files and cdns goes here ____________ -->
+
+  <!-- // bootstrap and jquery  -->
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+
+  <!-- // datatables , datepicker etc cdns -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" />
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+  <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+  <script type="text/javascript" src="https://cdn.rawgit.com/asvd/dragscroll/master/dragscroll.js"></script>
+
+  <!--// firebase config -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+
+  <script src="./assets/js/firebaseConfig.js"></script>
+
+  <!-- // main script file of page -->
+
+  <script src="assets/js/jquery.loadingModal.min.js"></script>
+
+  <script src="./assets/js/app.js"></script>
+
+  <script src="./assets/js/pages/dash-xxx22.js"></script>
+
+</body>
+
+</html>
